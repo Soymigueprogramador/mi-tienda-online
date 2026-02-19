@@ -1,0 +1,12 @@
+src/
+│
+├── app/                # Configuración global
+├── assets/             # Imágenes, íconos, fonts
+├── components/         # Componentes reutilizables (UI pura)
+├── features/           # Lógica por dominio
+├── hooks/              # Custom hooks
+├── layout/             # Estructura visual
+├── pages/              # Vistas principales
+├── services/           # Conexión API
+├── styles/             # Variables globales
+└── utils/              # Helpers
