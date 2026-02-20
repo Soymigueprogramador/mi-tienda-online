@@ -1,11 +1,13 @@
-import React from 'react'
+import ProductGrid from "../../features/products/ProductGrid/ProductGrid.jsx";
 
 const Shop = () => {
   return (
-    <div>
-      <h1> Shop </h1>
-    </div>
-  )
-}
+    <main>
+      <h1>Tienda</h1>
 
-export default Shop
+      <ProductGrid />
+    </main>
+  );
+};
+
+export default Shop;
