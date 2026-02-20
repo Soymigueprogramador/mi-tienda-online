@@ -2,7 +2,9 @@ import style from "./ProductCard.module.scss";
 import Button from "../../../components/Button/Button.jsx";
 
 const ProductCard = ({ product }) => {
-  const { image, title, description, price } = product;
+  if (!product) return null;
+
+    const { image, title, description, price } = product;
 
   return (
     <article className={style.card}>
