@@ -1,0 +1,34 @@
+// 🎨 Colors
+$color-primary: #1a1a1a;
+$color-accent: #2563eb;
+
+$color-bg: #fafafa;
+$color-surface: #ffffff;
+$color-border: #e5e7eb;
+
+$color-text: #111827;
+$color-text-muted: #6b7280;
+
+$color-success: #16a34a;
+$color-error: #dc2626;
+
+// 🔤 Typography
+$font-base: "Inter", system-ui, sans-serif;
+
+// 📏 Spacing scale (8pt system)
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 16px;
+$space-4: 24px;
+$space-5: 32px;
+$space-6: 48px;
+$space-7: 64px;
+
+// 🔲 Radius
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 14px;
+
+// ⚡ Transitions
+$transition-fast: 0.15s ease;
+$transition-base: 0.25s ease;

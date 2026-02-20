@@ -1,0 +1,76 @@
+ /* Llamado a variables de scss */
+
+/*  */@use "../../styles/variables" as *;
+
+// Base del botón (estructura común)
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+
+  padding: $space-2 $space-4;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: $font-base;
+
+  border-radius: $radius-md;
+  border: none;
+
+  cursor: pointer;
+  transition: all $transition-base;
+
+  white-space: nowrap;
+  user-select: none;
+}
+
+// -----------------------------
+// VARIANT: PRIMARY (CTA)
+// -----------------------------
+.primary {
+  background-color: $color-accent;
+  color: #fff;
+
+  &:hover {
+    background-color: darken($color-accent, 7%);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// -----------------------------
+// VARIANT: SECONDARY (neutral)
+// -----------------------------
+.secondary {
+  background-color: $color-surface;
+  color: $color-text;
+  border: 1px solid $color-border;
+
+  &:hover {
+    background-color: $color-bg;
+  }
+}
+
+// -----------------------------
+// VARIANT: GHOST (minimal)
+// -----------------------------
+.ghost {
+  background: transparent;
+  color: $color-text;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+// -----------------------------
+// DISABLED STATE
+// -----------------------------
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}

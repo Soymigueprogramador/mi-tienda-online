@@ -1,0 +1,28 @@
+@use "../../../styles/variables.scss" as *;
+
+.card {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-3;
+  transition: box-shadow $transition-base;
+}
+
+.card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.image {
+  border-radius: $radius-md;
+  margin-bottom: $space-3;
+}
+
+.title {
+  font-weight: 500;
+  margin-bottom: $space-1;
+}
+
+.price, .description {
+  font-weight: 700;
+  color: $color-primary;
+}

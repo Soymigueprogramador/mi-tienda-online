@@ -1,0 +1,18 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@mixin hover-lift {
+  transition: transform $transition-base;
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
