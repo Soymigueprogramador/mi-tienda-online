@@ -1,6 +1,6 @@
 import style from './Button.module.scss';
 
-const Button = ({ children, variant = 'primary' }) => {
+const Button = ({ children, variant = 'primary', ...props }) => {
   return (
     <>
         <button
@@ -9,6 +9,9 @@ const Button = ({ children, variant = 'primary' }) => {
                     ${ style.button }
                     ${ style[ variant ] }
                 `
+            }
+            {
+                ...props
             }
         >
             {

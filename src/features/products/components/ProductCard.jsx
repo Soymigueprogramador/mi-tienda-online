@@ -1,7 +1,10 @@
 import style from "./ProductCard.module.scss";
 import Button from "../../../components/Button/Button.jsx";
+import useCart from '../../cart/hooks/useCart.js';
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useCart();
+
   if (!product) return null;
 
     const { image, title, description, price } = product;
@@ -30,7 +33,10 @@ const ProductCard = ({ product }) => {
 
       {/* Botones */}
       <Button variant="primary">Comprar ahora</Button>
-      <Button variant="secondary">Agregar al carrito</Button>
+      <Button variant="secondary"
+        onClick={() => addToCart(product)}
+      >
+        Agregar al carrito</Button>
     </article>
   );
 };
