@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import style from "./ProductCard.module.scss";
 import Button from "../../../components/Button/Button.jsx";
-import useCart from "../../../features/cart/hooks/useCart.js";
+import { useCart } from "../../../features/cart/hooks/useCart.js";
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();

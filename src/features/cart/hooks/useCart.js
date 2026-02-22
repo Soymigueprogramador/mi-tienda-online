@@ -1,7 +1,13 @@
-// Importando el hook, context y el componente cartContext
 import { useContext } from "react";
-import { CartContext } from '../context/CartContext.jsx';
+import { CartContext } from "../../../features/cart/context/CartContext";
 
-const useCart = () => useContext( CartContext );
+export const useCart = () => {
+  const context = useContext(CartContext);
 
-export default useCart;
+  // 🔐 Protección contra múltiples instancias o mal montaje
+  if (!context) {
+    throw new Error("useCart debe usarse dentro de CartProvider");
+  }
+
+  return context;
+};

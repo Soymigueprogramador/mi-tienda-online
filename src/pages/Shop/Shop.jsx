@@ -1,5 +1,5 @@
 import ProductGrid from "../../features/products/ProductGrid/ProductGrid.jsx";
-import useCart from '../../features/cart/hooks/useCart.js';
+import { useCart } from '../../features/cart/hooks/useCart.js';
 
 const Shop = () => {
   const { items } = useCart();

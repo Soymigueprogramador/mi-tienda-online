@@ -1,5 +1,5 @@
 import style from './CartDrawer.module.scss';
-import useCart from '../../hooks/useCart';
+import { useCart } from '../../hooks/useCart';
 import Button from '../../../../components/Button/Button.jsx';
 
 const CartDrawer = ({ isOpen, onClose }) => {
