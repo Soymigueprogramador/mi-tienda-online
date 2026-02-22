@@ -1,21 +1,27 @@
 import { Outlet } from "react-router-dom";
-import NavBar from '../../components/NavBar/NavBar.jsx';
-import Footer from '../../components/Footer/Footer.jsx';
+import { useState } from "react";
+import NavBar from "../../components/NavBar/NavBar.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
+import CartDrawer from "../../features/cart/components/CartDrawer/CartDrawer.jsx";
 
 const AppLayout = () => {
+  const [isCartOpen, setCartOpen] = useState(false);
+
   return (
     <>
-        <NavBar />
+      
 
-        <main>
+      <main>
+        <NavBar onCartClick={() => setCartOpen(true)} />
 
-            <Outlet />
+        <Outlet />
 
-        </main>
+        <CartDrawer isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
+      </main>
 
-        <Footer />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default AppLayout
+export default AppLayout;

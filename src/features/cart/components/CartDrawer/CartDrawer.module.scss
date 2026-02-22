@@ -1,0 +1,48 @@
+@use "../../../../styles/variables" as *;
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 420px;
+  height: 100vh;
+  background: $color-surface;
+  border-left: 1px solid $color-border;
+  transition: right $transition-base;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.open {
+  right: 0;
+}
+
+.header {
+  padding: $space-4;
+  border-bottom: 1px solid $color-border;
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: $space-4;
+}
+
+.item {
+  display: flex;
+  gap: $space-3;
+  margin-bottom: $space-4;
+}
+
+.item img {
+  width: 64px;
+  border-radius: $radius-sm;
+}
+
+.footer {
+  padding: $space-4;
+  border-top: 1px solid $color-border;
+}

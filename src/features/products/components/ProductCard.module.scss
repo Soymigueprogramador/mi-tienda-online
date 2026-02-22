@@ -1,5 +1,11 @@
 @use "../../../styles/variables.scss" as *;
 
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .card {
   background: $color-surface;
   border: 1px solid $color-border;

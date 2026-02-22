@@ -1,43 +1,35 @@
+import { Link } from "react-router-dom";
 import style from "./ProductCard.module.scss";
 import Button from "../../../components/Button/Button.jsx";
-import useCart from '../../cart/hooks/useCart.js';
+import useCart from "../../../features/cart/hooks/useCart.js";
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
 
   if (!product) return null;
 
-    const { image, title, description, price } = product;
+  const { image, title, description, price } = product;
 
   return (
-    <article className={style.card}>
-      {/* Imagen */}
-      <img
-        src={image}
-        alt={title}
-        className={style.image}
-      />
+    <Link to={ `/product/${ product.id }` } className={ style.cardLink }>
+      <article className={style.card}>
+        {/* Imagen */}
+        <img src={image} alt={title} className={style.image} />
 
-      {/* Información */}
-      <h3 className={style.title}>
-        {title}
-      </h3>
+        {/* Información */}
+        <h3 className={style.title}>{title}</h3>
 
-      <p className={style.description}>
-        {description}
-      </p>
+        <p className={style.description}>{description}</p>
 
-      <p className={style.price}>
-        ${price}
-      </p>
+        <p className={style.price}>${price}</p>
 
-      {/* Botones */}
-      <Button variant="primary">Comprar ahora</Button>
-      <Button variant="secondary"
-        onClick={() => addToCart(product)}
-      >
-        Agregar al carrito</Button>
-    </article>
+        {/* Botones */}
+        <Button variant="primary">Comprar ahora</Button>
+        <Button variant="secondary" onClick={() => addToCart(product)}>
+          Agregar al carrito
+        </Button>
+      </article>
+    </Link>
   );
 };
 
