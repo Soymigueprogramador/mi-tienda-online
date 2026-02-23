@@ -1,10 +1,14 @@
 import { useContext } from "react";
-import { CartContext } from "../../../features/cart/context/CartContext";
+import { CartContext } from "../context/CartContext";
 
+/**
+ * Hook de acceso al CartContext
+ * Solo expone el contexto. NO maneja estado ni lógica.
+ */
 export const useCart = () => {
   const context = useContext(CartContext);
 
-  // 🔐 Protección contra múltiples instancias o mal montaje
+  // Protección contra uso fuera del Provider
   if (!context) {
     throw new Error("useCart debe usarse dentro de CartProvider");
   }

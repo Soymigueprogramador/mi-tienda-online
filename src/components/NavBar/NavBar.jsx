@@ -1,12 +1,23 @@
-import Button from '../../components/Button/Button.jsx';
+import { Link } from "react-router-dom"
+import CartWidget from '../CartWidget/CartWidget.jsx'
+import style from './NavBar.module.scss'
 
-const NavBar = ({ onCartClick }) => {
+const NavBar = () => {
   return (
-    <div>
-      <p> Barra de navegacion </p>
-      <Button onClick={onCartClick}>Carrito</Button>
-    </div>
-  );
-};
+    <header>
+      <Link to='/' className={ style.logo }>
+        Tienda online
+      </Link>
 
-export default NavBar;
+      <nav className={ style.nav }>
+        <Link to='/shop'>
+          Shop
+        </Link>
+      </nav>
+
+      <CartWidget />
+    </header>
+  )
+}
+
+export default NavBar

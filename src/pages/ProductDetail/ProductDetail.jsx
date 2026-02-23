@@ -9,6 +9,8 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
+  console.log(`Se agrego un producto al carrito`)
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 

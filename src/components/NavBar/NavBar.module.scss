@@ -1,0 +1,22 @@
+@use '../../styles/variables' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: $space-3 $space-4;
+  border-bottom: 1px solid $color-border;
+  background: white;
+}
+
+.nav {
+  display: flex;
+  gap: $space-3;
+}
+
+.logo {
+  font-weight: 700;
+  text-decoration: none;
+  color: $color-text;
+}

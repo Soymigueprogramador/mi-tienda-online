@@ -1,0 +1,33 @@
+@use '../../styles/variables' as *;
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.controls button {
+  width: 30px;
+}
+
+.summary {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buy {
+  background: black;
+  color: white;
+  padding: 0.8rem 1.2rem;
+}
