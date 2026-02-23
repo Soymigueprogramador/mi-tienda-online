@@ -1,11 +1,32 @@
-import { createContext, useMemo, useState } from "react";
+import { createContext, useMemo, useState, useEffect } from "react";
 
 // 1️⃣ Creamos el Contexto
 export const CartContext = createContext();
 
-// 2️⃣ Provider que envuelve la app
+/**
+ * 2️⃣ Obtener carrito inicial desde localStorage
+ * (se ejecuta solo una vez al montar la app)
+ */
+const getInitialCart = () => {
+  try {
+    const stored = localStorage.getItem("cart");
+    return stored ? JSON.parse(stored) : [];
+  } catch (error) {
+    console.error("Error leyendo localStorage", error);
+    return [];
+  }
+};
+
+// 3️⃣ Provider que envuelve la app
 export const CartProvider = ({ children }) => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(getInitialCart);
+
+  /**
+   * 4️⃣ Persistir automáticamente cada cambio
+   */
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(items));
+  }, [items]);
 
   // ➕ Agregar producto
   const addToCart = (product) => {
@@ -44,7 +65,7 @@ export const CartProvider = ({ children }) => {
             ? { ...item, quantity: item.quantity - 1 }
             : item
         )
-        .filter((item) => item.quantity > 0) // elimina si llega a 0
+        .filter((item) => item.quantity > 0)
     );
   };
 
@@ -56,7 +77,7 @@ export const CartProvider = ({ children }) => {
   // 🧹 Vaciar carrito
   const clearCart = () => setItems([]);
 
-  // 💰 Total derivado (NO es estado, se calcula)
+  // 💰 Total derivado (NO es estado)
   const totalPrice = useMemo(() => {
     return items.reduce(
       (acc, item) => acc + item.price * item.quantity,
