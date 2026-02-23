@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../features/cart/hooks/useCart.js'
 import style from './Checkout.module.scss'
 
 const Checkout = () => {
+ const navigate = useNavigate();
+
   const {
     items,
     increment,
@@ -14,6 +17,16 @@ const Checkout = () => {
   if( items.length === 0 ) {
     return <p className={style.empty}>Tu carrito está vacío</p>
   }
+
+  const handleCheckout = () => {
+  const orderId = crypto.randomUUID();
+
+  clearCart();
+
+  navigate('/order-success', {
+    state: { orderId },
+  });
+};
 
   return (
     <>
@@ -63,7 +76,7 @@ const Checkout = () => {
             Vaciar carrito
           </button>
 
-          <button className={ style.buy }>
+          <button className={ style.buy } onClick={ handleCheckout }>
             Finalizar compra
           </button>
         </footer>
