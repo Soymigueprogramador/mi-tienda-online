@@ -7,52 +7,40 @@ const OrderSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  /**
-   * 1️⃣ El orderId viene desde navigate("/checkout/order-success", { state })
-   */
   const orderId = location.state?.orderId;
 
   /**
-   * 2️⃣ Si alguien entra manualmente a la URL,
-   * lo redirigimos correctamente
+   * 🔐 Protección de acceso directo
    */
   useEffect(() => {
     if (!orderId) {
-      navigate("/shop");
+      navigate("/shop", { replace: true });
     }
   }, [orderId, navigate]);
 
+  if (!orderId) return null;
+
   /**
-   * 3️⃣ Leer órdenes guardadas
+   * Leer órdenes guardadas
    */
   const orders = getOrders();
 
-  /**
-   * 4️⃣ Buscar la orden correspondiente
-   */
   const order = useMemo(() => {
-    return orders.find((o) => o.id === orderId);
+    return orders.find(o => o.id === orderId);
   }, [orders, orderId]);
 
-  /**
-   * Mientras redirige o busca, no renderizamos nada
-   */
   if (!order) return null;
 
   /**
-   * 5️⃣ Datos derivados para mostrar
+   * Datos derivados
    */
   const totalItems = order.items.reduce(
     (acc, item) => acc + item.quantity,
     0
   );
 
-  // ✅ usar la propiedad correcta
-  const formattedDate = new Date(order.date).toLocaleString();
+  const formattedDate = new Date(order.createdAt).toLocaleString();
 
-  /**
-   * 6️⃣ Render final
-   */
   return (
     <section className={style.container}>
       <h1>¡Compra realizada con éxito!</h1>
