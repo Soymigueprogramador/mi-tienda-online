@@ -1,0 +1,39 @@
+@use "../../../../styles/variables" as *;
+
+.card {
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-3;
+  background: $color-surface;
+  transition: box-shadow $transition-base;
+}
+
+.card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $space-2;
+}
+
+.id {
+  font-weight: 600;
+}
+
+.date {
+  color: $color-text-muted;
+  font-size: 0.9rem;
+}
+
+.body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total {
+  font-weight: 700;
+  color: $color-primary;
+}

@@ -6,8 +6,14 @@ import style from "./Checkout.module.scss";
 const Checkout = () => {
   const navigate = useNavigate();
 
-  const { items, increment, decrement, removeFromCart, clearCart, totalPrice } =
-    useCart();
+  const {
+    items,
+    increment,
+    decrement,
+    removeFromCart,
+    clearCart,
+    totalPrice,
+  } = useCart();
 
   if (items.length === 0) {
     return <p className={style.empty}>Tu carrito está vacío</p>;
@@ -16,16 +22,16 @@ const Checkout = () => {
   const handleCheckout = () => {
     const orderId = crypto.randomUUID();
 
-    // ⚠️ CLONAMOS items (una orden NO debe depender del carrito vivo)
+    // snapshot de la orden
     const order = {
       id: orderId,
       items: items.map(item => ({ ...item })),
       total: totalPrice,
-      date: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
     };
 
-    saveOrder(order);   // 1️⃣ guardamos orden
-    clearCart();        // 2️⃣ recién ahora limpiamos carrito
+    saveOrder(order);
+    clearCart();
 
     navigate("/checkout/order-success", {
       state: { orderId },
