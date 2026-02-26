@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import style from './OrderCard.module.scss';
 
 const OrderCard = ({ order }) => {
+  // Hacemos que se puedan abrir y cerrar el detalle de las ordenes.
+  const [ open, setOpen ] = useState(false);
+
   // Total de productos comprados
   const totalItems = order.items.reduce(
     (acc, item) => acc + item.quantity,
@@ -20,6 +24,15 @@ const OrderCard = ({ order }) => {
         <span className={style.date}>
           Fecha: {formattedDate}
         </span>
+
+        <button
+          className={style.toggle}
+          onClick={() => setOpen(!open)}
+        >
+          {
+            open ? 'Ocultar detalle' : 'Ver detalle'
+          }
+        </button>
       </header>
 
       <div className={style.body}>
@@ -31,6 +44,20 @@ const OrderCard = ({ order }) => {
           Total pagado: ${order.total}
         </p>
       </div>
+
+      {
+        open && (
+          <ul className={style.items}>
+            {
+              order.items.map(item => (
+                <li key={item.id}>
+                  {item.title} × {item.quantity} — ${item.price}
+                </li>
+              ))
+            }
+          </ul>
+        )
+      }
     </article>
   );
 };

@@ -41,6 +41,10 @@ const OrderSuccess = () => {
 
   const formattedDate = new Date(order.createdAt).toLocaleString();
 
+  if( !order ) {
+    return <p> Orden no encontrada </p>
+  }
+
   return (
     <section className={style.container}>
       <h1>¡Compra realizada con éxito!</h1>
@@ -50,6 +54,27 @@ const OrderSuccess = () => {
         <p><strong>Productos comprados:</strong> {totalItems}</p>
         <p><strong>Total pagado:</strong> ${order.total}</p>
         <p><strong>Fecha:</strong> {formattedDate}</p>
+
+        <hr />
+
+        <h2> Datos del comprador </h2>
+        <p>
+          <strong>
+            Nombre: { order.customer.name }
+          </strong>
+        </p>
+
+        <p>
+          <strong>
+            Email: { order.customer.email }
+          </strong>
+        </p>
+
+        <p>
+          <strong>
+            Direccion de entrega: { order.customer.address }
+          </strong>
+        </p>
       </div>
 
       <button onClick={() => navigate("/shop")}>

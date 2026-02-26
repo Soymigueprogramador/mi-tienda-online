@@ -3,12 +3,19 @@ import { useCart } from "../../features/cart/hooks/useCart";
 import style from "./CartWidget.module.scss";
 
 const CartWidget = () => {
+  // 🔹 Obtenemos el total de productos del contexto global
   const { totalItems } = useCart();
 
   return (
     <Link to="/checkout" className={style.cart}>
-      <span className={style.icon}>🛒</span>
-      {totalItems > 0 && <span className={style.badge}>{totalItems}</span>}
+      🛒
+
+      {/* 🔹 Badge condicional (solo aparece si hay productos) */}
+      {totalItems > 0 && (
+        <span className={style.badge}>
+          {totalItems}
+        </span>
+      )}
     </Link>
   );
 };

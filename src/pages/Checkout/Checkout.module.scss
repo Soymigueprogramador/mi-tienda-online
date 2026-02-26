@@ -31,3 +31,48 @@
   color: white;
   padding: 0.8rem 1.2rem;
 }
+
+.form {
+  margin-top: 2.5rem;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    height: 48px;
+    padding: 0 14px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+
+    &::placeholder {
+      color: #9b9b9b;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #111;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+.errors {
+  color: #ff4d4f;
+  font-size: 0.85rem;
+  margin-top: -6px;
+  margin-bottom: 10px;
+}
