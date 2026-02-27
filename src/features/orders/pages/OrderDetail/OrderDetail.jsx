@@ -51,6 +51,13 @@ const OrderDetail = () => {
         <p><strong>Total pagado:</strong> ${order.total}</p>
       </div>
 
+      <h3> Datos del comprador </h3>
+      <div className={style.customer}>
+      <p><strong> Nombre: { order.custom?.name } </strong></p>
+      <p><strong> Nombre: { order.custom?.email } </strong></p>
+      <p><strong> Nombre: { order.custom?.address } </strong></p>
+      </div>
+
       <h3>Productos</h3>
       <ul className={style.productList}>
         {order.items?.map((item) => (
