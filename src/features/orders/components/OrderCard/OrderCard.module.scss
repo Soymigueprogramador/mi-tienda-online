@@ -67,3 +67,39 @@
     margin-bottom: 0.5rem;
   }
 }
+
+.status {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.status strong {
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.status strong:where(:contains("pending")) {
+  background: #fff3cd;
+}
+
+.status strong:where(:contains("completed")) {
+  background: #d4edda;
+}
+
+.status strong:where(:contains("cancelled")) {
+  background: #f8d7da;
+}
+
+.detail {
+  margin-top: 10px;
+  padding: 6px 10px;
+  border: none;
+  background: #222;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.detail:hover {
+  background: #444;
+}

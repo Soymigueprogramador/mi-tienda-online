@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import style from './OrderCard.module.scss';
 
 const OrderCard = ({ order }) => {
+  const navigate = useNavigate();
+
   // Hacemos que se puedan abrir y cerrar el detalle de las ordenes.
   const [ open, setOpen ] = useState(false);
 
@@ -14,11 +17,19 @@ const OrderCard = ({ order }) => {
   // Fecha formateada
   const formattedDate = new Date(order.createdAt).toLocaleString();
 
+  const handleGoToDetail = () => {
+    navigate(`/orders/${order.id}`);
+;  };
+
   return (
     <article className={style.card}>
       <header className={style.header}>
         <span className={style.id}>
           Número de orden: #{order.id}
+        </span>
+
+        <span className={style.status}>
+          Estado: <strong> { order.status } </strong>
         </span>
 
         <span className={style.date}>
@@ -43,6 +54,13 @@ const OrderCard = ({ order }) => {
         <p className={style.total}>
           Total pagado: ${order.total}
         </p>
+
+        <button
+          onClick={handleGoToDetail}
+          className={style.detail}
+        >
+          Ir al detalle
+        </button>
       </div>
 
       {

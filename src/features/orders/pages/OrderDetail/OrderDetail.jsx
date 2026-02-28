@@ -1,6 +1,7 @@
 import style from './OrderDetail.module.scss';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { updateOrder } from '../../utils/orderStorage.js';
 
 //const ORDERS_STORAGE_KEY = "ecommerce_orders_v1";
 const STORAGE_KEY = "orders";
@@ -42,6 +43,17 @@ const OrderDetail = () => {
   // 3. Formateo de fecha (ahora es seguro porque 'order' existe)
   const formattedDate = new Date(order.createdAt).toLocaleString();
 
+  // Funcion para que el usuario pueda cancelar la compra
+  const handleCancelOrder = () => {
+    const updated = {
+      ...order,
+      status: "cancelled",
+    };
+
+    updateOrder(updated);
+    setOrder(updated);
+  };
+
   return (
     <section className={style.container}>
       <h2>Detalle de la Orden #{order.id}</h2>
@@ -49,6 +61,7 @@ const OrderDetail = () => {
       <div className={style.info}>
         <p><strong>Fecha:</strong> {formattedDate}</p>
         <p><strong>Total pagado:</strong> ${order.total}</p>
+        <p> Estado: <toString> { status } </toString> </p>
       </div>
 
       <h3> Datos del comprador </h3>
@@ -70,6 +83,14 @@ const OrderDetail = () => {
       <button onClick={() => navigate("/orders")}>
         Volver al historial
       </button>
+
+      {
+        order.status === "pending" && (
+          <button onClick={handleCancelOrder} className={style.cancel}>
+            Cancelar orden
+          </button>
+        )
+      }
     </section>
   );
 };

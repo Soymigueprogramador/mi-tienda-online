@@ -28,6 +28,7 @@ const Checkout = () => {
       total: totalPrice,
       createdAt: new Date().toISOString(),
       customer: form,
+      status: "pending",
     };
 
     saveOrder(order);

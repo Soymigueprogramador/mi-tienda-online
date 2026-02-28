@@ -11,6 +11,17 @@ export const saveOrder = (order) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
 };
 
+export const updateOrder = (updatedOrder) => {
+  const orders = getOrders();
+
+  const newOrders = orders.map(order =>
+    order.id === updatedOrder.id ? updatedOrder : order
+  );
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newOrders));
+};
+
 export const clearOrders = () => {
   localStorage.removeItem(STORAGE_KEY);
 };
+
