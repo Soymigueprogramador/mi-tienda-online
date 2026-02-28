@@ -1,7 +1,8 @@
-import style from './OrderDetail.module.scss';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { updateOrder } from '../../utils/orderStorage.js';
+import style from "./OrderDetail.module.scss";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { updateOrder } from "../../utils/orderStorage.js";
+import { useCart } from '../../../cart/context/CartContext.jsx';
 
 //const ORDERS_STORAGE_KEY = "ecommerce_orders_v1";
 const STORAGE_KEY = "orders";
@@ -10,18 +11,19 @@ const OrderDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [order, setOrder] = useState(null);
-  const [loading, setLoading] = useState(true); // Estado de carga
+  const [loading, setLoading] = useState(true);
+  const { addManyToCart } = useCart();
 
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const orders = JSON.parse(stored);
-        const foundOrder = orders.find(o => String(o.id) === String(id));
+        const foundOrder = orders.find((o) => String(o.id) === String(id));
         setOrder(foundOrder || null);
       }
     } catch (error) {
-      console.error('Error al obtener la orden', error);
+      console.error("Error al obtener la orden", error);
     } finally {
       setLoading(false);
     }
@@ -54,21 +56,50 @@ const OrderDetail = () => {
     setOrder(updated);
   };
 
+  const status = order.status || "pending";
+
+  const handleReorder = () => {
+    addManyToCart(order.items);
+    navigate("/cart");
+  };
+
   return (
     <section className={style.container}>
       <h2>Detalle de la Orden #{order.id}</h2>
 
       <div className={style.info}>
-        <p><strong>Fecha:</strong> {formattedDate}</p>
-        <p><strong>Total pagado:</strong> ${order.total}</p>
-        <p> Estado: <toString> { status } </toString> </p>
+        <p>
+          <strong>Fecha:</strong> {formattedDate}
+        </p>
+        <p>
+          <strong>Total pagado:</strong> ${order.total}
+        </p>
+        <p>
+          {" "}
+          Estado: <toString> {status} </toString>{" "}
+        </p>
+
+        <p>
+          <strong> Estado: </strong> {" "}
+          <span className={`${style.status} ${style[status]}`}>
+            {
+              status === "pending" ? "Pendiente" : "Cancelada"
+            }
+          </span>
+        </p>
       </div>
 
       <h3> Datos del comprador </h3>
       <div className={style.customer}>
-      <p><strong> Nombre: { order.custom?.name } </strong></p>
-      <p><strong> Nombre: { order.custom?.email } </strong></p>
-      <p><strong> Nombre: { order.custom?.address } </strong></p>
+        <p>
+          <strong> Nombre: {order.custom?.name} </strong>
+        </p>
+        <p>
+          <strong> Nombre: {order.custom?.email} </strong>
+        </p>
+        <p>
+          <strong> Nombre: {order.custom?.address} </strong>
+        </p>
       </div>
 
       <h3>Productos</h3>
@@ -80,17 +111,15 @@ const OrderDetail = () => {
         ))}
       </ul>
 
-      <button onClick={() => navigate("/orders")}>
-        Volver al historial
-      </button>
+      <button onClick={() => navigate("/orders")}>Volver al historial</button>
 
-      {
-        order.status === "pending" && (
-          <button onClick={handleCancelOrder} className={style.cancel}>
-            Cancelar orden
-          </button>
-        )
-      }
+      <button onClick={handleReorder} className={style.reorder}> Volver a comprar </button>
+
+      {status === "pending" && (
+        <button onClick={handleCancelOrder} className={style.cancel}>
+          Cancelar orden
+        </button>
+      )}
     </section>
   );
 };

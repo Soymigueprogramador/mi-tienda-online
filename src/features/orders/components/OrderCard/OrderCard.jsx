@@ -21,6 +21,8 @@ const OrderCard = ({ order }) => {
     navigate(`/orders/${order.id}`);
 ;  };
 
+    const status = order.status || "pending";
+
   return (
     <article className={style.card}>
       <header className={style.header}>
@@ -34,6 +36,12 @@ const OrderCard = ({ order }) => {
 
         <span className={style.date}>
           Fecha: {formattedDate}
+        </span>
+
+        <span className={`${style.status} ${style[status]}`}>
+          {
+            status === "pending" ? "Pendiente" : "Cancelada"
+          }
         </span>
 
         <button

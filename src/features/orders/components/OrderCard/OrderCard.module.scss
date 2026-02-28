@@ -103,3 +103,20 @@
 .detail:hover {
   background: #444;
 }
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.cancelled {
+  background: #f8d7da;
+  color: #721c24;
+}

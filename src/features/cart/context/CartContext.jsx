@@ -17,7 +17,7 @@ const getInitialCart = () => {
         item &&
         typeof item.id !== "undefined" &&
         typeof item.price === "number" &&
-        typeof item.quantity === "number"
+        typeof item.quantity === "number",
     );
   } catch (error) {
     console.warn("Cart hydration failed. Resetting cart.", error);
@@ -44,7 +44,7 @@ export const CartProvider = ({ children }) => {
         return prev.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
-            : item
+            : item,
         );
       }
 
@@ -52,13 +52,29 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const addManyToCart = (products) => {
+    setItems((prev) => {
+      const updated = [...prev];
+
+      products.forEach((product) => {
+        const existing = updated.find((item) => item.id === product.id);
+
+        if (existing) {
+          existing.quantity += product.quantity;
+        } else {
+          updated.push({ ...product });
+        }
+      });
+
+      return updated;
+    });
+  };
+
   const increment = (id) => {
     setItems((prev) =>
       prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      )
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+      ),
     );
   };
 
@@ -66,11 +82,9 @@ export const CartProvider = ({ children }) => {
     setItems((prev) =>
       prev
         .map((item) =>
-          item.id === id
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item,
         )
-        .filter((item) => item.quantity > 0)
+        .filter((item) => item.quantity > 0),
     );
   };
 
@@ -87,10 +101,7 @@ export const CartProvider = ({ children }) => {
    * 💰 Total monetario derivado
    */
   const totalPrice = useMemo(() => {
-    return items.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0
-    );
+    return items.reduce((acc, item) => acc + item.price * item.quantity, 0);
   }, [items]);
 
   /**
@@ -105,6 +116,7 @@ export const CartProvider = ({ children }) => {
       value={{
         items,
         addToCart,
+        addManyToCart,
         increment,
         decrement,
         removeFromCart,
