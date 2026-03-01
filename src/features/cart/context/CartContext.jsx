@@ -1,4 +1,4 @@
-import { createContext, useMemo, useState, useEffect } from "react";
+import { createContext, useMemo, useState, useEffect, useContext } from "react";
 
 const CART_STORAGE_KEY = "ecommerce_cart_v1";
 
@@ -97,16 +97,10 @@ export const CartProvider = ({ children }) => {
     localStorage.removeItem(CART_STORAGE_KEY);
   };
 
-  /**
-   * 💰 Total monetario derivado
-   */
   const totalPrice = useMemo(() => {
     return items.reduce((acc, item) => acc + item.price * item.quantity, 0);
   }, [items]);
 
-  /**
-   * 🛒 Total de unidades en carrito (ESTO FALTABA)
-   */
   const totalItems = useMemo(() => {
     return items.reduce((acc, item) => acc + item.quantity, 0);
   }, [items]);
@@ -128,4 +122,18 @@ export const CartProvider = ({ children }) => {
       {children}
     </CartContext.Provider>
   );
+};
+
+/**
+ * 🔴 ESTE ERA EL PASO QUE FALTABA
+ * Hook consumidor del contexto
+ */
+export const useCart = () => {
+  const context = useContext(CartContext);
+
+  if (!context) {
+    throw new Error("useCart debe usarse dentro de un CartProvider");
+  }
+
+  return context;
 };

@@ -2,18 +2,24 @@ import style from "./OrderDetail.module.scss";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { updateOrder } from "../../utils/orderStorage.js";
-import { useCart } from '../../../cart/context/CartContext.jsx';
+import { useCart } from "../../../cart/context/CartContext.jsx";
+import { useToast } from "../../../ui/context/ToastContext.jsx";
 
-//const ORDERS_STORAGE_KEY = "ecommerce_orders_v1";
 const STORAGE_KEY = "orders";
 
 const OrderDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { addManyToCart } = useCart();
 
+  const { addManyToCart } = useCart();
+  const { showToast } = useToast();
+
+  /**
+   * 🔎 Cargar orden
+   */
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -27,41 +33,52 @@ const OrderDetail = () => {
     } finally {
       setLoading(false);
     }
-  }, [id]); // Agregamos 'id' como dependencia por buena práctica
+  }, [id]);
 
-  // 1. Manejo de carga
+  /**
+   * ⚠️ Mostrar toast SOLO cuando la orden pasa a cancelada
+   * (Nunca en el render)
+   */
+  useEffect(() => {
+    if (order?.status === "cancelled") {
+      showToast("La orden fue cancelada", "error");
+    }
+  }, [order?.status, showToast]);
+
   if (loading) return <p>Cargando detalles de la orden...</p>;
 
-  // 2. Manejo de orden no encontrada
   if (!order) {
     return (
       <section className={style.container}>
         <h2>Orden no encontrada</h2>
-        <button onClick={() => navigate("/orders")}>Volver al historial</button>
+        <button onClick={() => navigate("/orders")}>
+          Volver al historial
+        </button>
       </section>
     );
   }
 
-  // 3. Formateo de fecha (ahora es seguro porque 'order' existe)
-  const formattedDate = new Date(order.createdAt).toLocaleString();
+  const formattedDate = new Date(order.createdAt).toLocaleString("es-AR");
 
-  // Funcion para que el usuario pueda cancelar la compra
+  /**
+   * ❌ Cancelar orden
+   */
   const handleCancelOrder = () => {
-    const updated = {
-      ...order,
-      status: "cancelled",
-    };
-
+    const updated = { ...order, status: "cancelled" };
     updateOrder(updated);
     setOrder(updated);
   };
 
-  const status = order.status || "pending";
-
+  /**
+   * 🔁 Reordenar
+   */
   const handleReorder = () => {
     addManyToCart(order.items);
-    navigate("/cart");
+    showToast("Productos agregados nuevamente al carrito", "success");
+    navigate("/shop");
   };
+
+  const status = order.status || "pending";
 
   return (
     <section className={style.container}>
@@ -71,49 +88,50 @@ const OrderDetail = () => {
         <p>
           <strong>Fecha:</strong> {formattedDate}
         </p>
+
         <p>
-          <strong>Total pagado:</strong> ${order.total}
-        </p>
-        <p>
-          {" "}
-          Estado: <toString> {status} </toString>{" "}
+          <strong>Total pagado:</strong>{" "}
+          {order.total.toLocaleString("es-AR", {
+            style: "currency",
+            currency: "ARS",
+          })}
         </p>
 
         <p>
-          <strong> Estado: </strong> {" "}
+          <strong>Estado:</strong>{" "}
           <span className={`${style.status} ${style[status]}`}>
-            {
-              status === "pending" ? "Pendiente" : "Cancelada"
-            }
+            {status === "pending" ? "Pendiente" : "Cancelada"}
           </span>
         </p>
       </div>
 
-      <h3> Datos del comprador </h3>
+      <h3>Datos del comprador</h3>
       <div className={style.customer}>
-        <p>
-          <strong> Nombre: {order.custom?.name} </strong>
-        </p>
-        <p>
-          <strong> Nombre: {order.custom?.email} </strong>
-        </p>
-        <p>
-          <strong> Nombre: {order.custom?.address} </strong>
-        </p>
+        <p><strong>Nombre:</strong> {order.custom?.name}</p>
+        <p><strong>Email:</strong> {order.custom?.email}</p>
+        <p><strong>Dirección:</strong> {order.custom?.address}</p>
       </div>
 
       <h3>Productos</h3>
       <ul className={style.productList}>
         {order.items?.map((item) => (
           <li key={item.id}>
-            {item.title} × {item.quantity} — ${item.price}
+            {item.title} × {item.quantity} —{" "}
+            {item.price.toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
           </li>
         ))}
       </ul>
 
-      <button onClick={() => navigate("/orders")}>Volver al historial</button>
+      <button onClick={() => navigate("/orders")}>
+        Volver al historial
+      </button>
 
-      <button onClick={handleReorder} className={style.reorder}> Volver a comprar </button>
+      <button onClick={handleReorder} className={style.reorder}>
+        Volver a comprar
+      </button>
 
       {status === "pending" && (
         <button onClick={handleCancelOrder} className={style.cancel}>
