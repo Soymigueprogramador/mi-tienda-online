@@ -1,4 +1,4 @@
-const STORAGE_KEY = "orders";
+  const STORAGE_KEY = "orders";
 
 export const getOrders = () => {
   const stored = localStorage.getItem(STORAGE_KEY);
@@ -24,4 +24,3 @@ export const updateOrder = (updatedOrder) => {
 export const clearOrders = () => {
   localStorage.removeItem(STORAGE_KEY);
 };
-

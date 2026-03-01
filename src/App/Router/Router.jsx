@@ -8,6 +8,7 @@ import Checkout from "../../pages/Checkout/Checkout.jsx";
 import OrderSuccess from "../../features/cart/pages/OrderSuccess/OrderSuccess.jsx";
 import Orders from '../../features/orders/pages/orders/Orders.jsx';
 import OrderDetail from '../../features/orders/pages/OrderDetail/OrderDetail.jsx';
+import NotFound from '../../pages/NotFound/NotFound.jsx'
 
 const Router = () => {
   return (
@@ -25,6 +26,8 @@ const Router = () => {
 
           <Route path="orders" element={<Orders />} />
           <Route path="/orders/:id" element={ <OrderDetail/> } />
+
+          <Route path="*" element={ <NotFound/> } />
         </Route>
       </Routes>
     </BrowserRouter>

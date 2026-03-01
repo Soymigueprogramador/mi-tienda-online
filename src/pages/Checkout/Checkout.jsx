@@ -19,6 +19,23 @@ const Checkout = () => {
   const { items, increment, decrement, removeFromCart, clearCart, totalPrice } =
     useCart();
 
+  /* ---------------- EMPTY STATE CONTROLADO ---------------- */
+  if (!items || items.length === 0) {
+    return (
+      <section className={style.empty}>
+        <h2>Tu carrito está vacío</h2>
+        <p>No hay productos para finalizar la compra.</p>
+
+        <button
+          onClick={() => navigate("/shop")}
+          className={style.backToShop}
+        >
+          Ir a la tienda
+        </button>
+      </section>
+    );
+  }
+
   /* ---------------- VALIDACIÓN ---------------- */
   const validateForm = () => {
     const newErrors = {};
@@ -39,8 +56,6 @@ const Checkout = () => {
     }
 
     setErrors(newErrors);
-
-    // true si NO hay errores
     return Object.keys(newErrors).length === 0;
   };
 
@@ -57,6 +72,7 @@ const Checkout = () => {
       items: items.map((item) => ({ ...item })),
       total: totalPrice,
       createdAt: new Date().toISOString(),
+      status: "pending",
       customer: {
         name: form.name,
         email: form.email,
@@ -64,7 +80,7 @@ const Checkout = () => {
       },
     };
 
-    // simulación request HTTP
+    // Simulación request HTTP
     setTimeout(() => {
       saveOrder(order);
       clearCart();
@@ -78,7 +94,7 @@ const Checkout = () => {
       navigate("/checkout/order-success", {
         state: { orderId },
       });
-    }, 1000);
+    }, 800);
   };
 
   /* ---------------- HANDLERS ---------------- */
@@ -90,10 +106,6 @@ const Checkout = () => {
       [name]: value,
     }));
   };
-
-  if (items.length === 0) {
-    return <p className={style.empty}>Tu carrito está vacío</p>;
-  }
 
   const isFormValid =
     form.name.trim() !== "" &&

@@ -1,9 +1,13 @@
 import style from "./OrderSuccess.module.scss";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getOrders } from "../../../../features/orders/utils/orderStorage.js";
 
+const STORAGE_KEY = "orders";
+
 const OrderSuccess = () => {
+  const [ valid, setValid ] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -13,10 +17,22 @@ const OrderSuccess = () => {
    * 🔐 Protección de acceso directo
    */
   useEffect(() => {
-    if (!orderId) {
-      navigate("/shop", { replace: true });
+    const stored = localStorage.getItem(STORAGE_KEY);
+
+    if( !stored ) {
+      navigate("/");
+      return
     }
-  }, [orderId, navigate]);
+
+    const orders = JSON.parse(stored);
+
+    if( !orders ) {
+      navigate("/");
+      return
+    }
+
+    setValid(true);
+  }, [navigate]);
 
   if (!orderId) return null;
 
@@ -44,6 +60,8 @@ const OrderSuccess = () => {
   if( !order ) {
     return <p> Orden no encontrada </p>
   }
+
+  if( !valid ) return null;
 
   return (
     <section className={style.container}>

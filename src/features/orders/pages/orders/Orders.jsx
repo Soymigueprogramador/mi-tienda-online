@@ -32,6 +32,24 @@ const orders = () => {
     )
   }
 
+
+  if( !orders.length ) {
+    return (
+        <section className={style.container}>
+            <h2>
+                No tener ninguna orden
+            </h2>
+            <p>
+                Cuando tengas una orden te apareceta aca
+            </p>
+
+            <button onClick={() => navigate("/shop")}>
+                Ir a comprar
+            </button>
+        </section>
+    )
+  }
+
     return (
     <>
         <section className={style.container}>
