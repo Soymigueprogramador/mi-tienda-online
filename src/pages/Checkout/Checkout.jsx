@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../features/cart/hooks/useCart.js";
-import { saveOrder } from "../../features/orders/utils/orderStorage.js";
+//import { saveOrder } from "../../features/orders/utils/orderStorage.js";
+
+import { createOrder } from '../../services/orderService/orderService.js'
 import style from "./Checkout.module.scss";
 
 const Checkout = () => {
@@ -60,7 +62,8 @@ const Checkout = () => {
   };
 
   /* ---------------- CHECKOUT ---------------- */
-  const handleCheckout = () => {
+  /*
+    const handleCheckout = async () => {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
@@ -82,7 +85,22 @@ const Checkout = () => {
 
     // Simulación request HTTP
     setTimeout(() => {
-      saveOrder(order);
+      //saveOrder(order);
+
+      try {
+        await createOrder(order);
+
+  //clearCart();
+
+  navigate("/checkout/order-success", {
+    state: { orderId },
+  });
+      } catch (error) {
+        console.error('Error al crear la orden', error)
+      } finally {
+        setIsSubmitting(false);
+      }
+
       clearCart();
 
       setForm({
@@ -96,6 +114,57 @@ const Checkout = () => {
       });
     }, 800);
   };
+  */
+
+
+
+  const handleCheckout = async () => {
+  if (!validateForm()) return;
+
+  setIsSubmitting(true);
+
+  const orderId = crypto.randomUUID();
+
+  const order = {
+    id: orderId,
+    items: items.map((item) => ({ ...item })),
+    total: totalPrice,
+    createdAt: new Date().toISOString(),
+    status: "pending",
+    customer: {
+      name: form.name,
+      email: form.email,
+      address: form.address,
+    },
+  };
+
+  try {
+    // 🔹 ahora usamos el service (simula API real)
+    await createOrder(order);
+
+    // 🔹 limpiar carrito después de guardar
+    clearCart();
+
+    // 🔹 resetear formulario
+    setForm({
+      name: "",
+      email: "",
+      address: "",
+    });
+
+    // 🔹 navegar al success
+    navigate("/checkout/order-success", {
+      state: { orderId },
+    });
+  } catch (error) {
+    console.error("Error al crear la orden", error);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
+
 
   /* ---------------- HANDLERS ---------------- */
   const handleChange = (e) => {

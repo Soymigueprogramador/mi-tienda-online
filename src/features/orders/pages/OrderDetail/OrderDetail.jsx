@@ -1,11 +1,14 @@
 import style from "./OrderDetail.module.scss";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { updateOrder } from "../../utils/orderStorage.js";
 import { useCart } from "../../../cart/context/CartContext.jsx";
 import { useToast } from "../../../ui/context/ToastContext.jsx";
 
-const STORAGE_KEY = "orders";
+// ✅ ahora usamos la capa service
+import {
+  getOrderById,
+  updateOrderStatus,
+} from "../../../../services/orderService/orderService.js";
 
 const OrderDetail = () => {
   const { id } = useParams();
@@ -17,33 +20,42 @@ const OrderDetail = () => {
   const { addManyToCart } = useCart();
   const { showToast } = useToast();
 
-  /**
-   * 🔎 Cargar orden
-   */
+  /* ---------------- FETCH ORDER ---------------- */
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const orders = JSON.parse(stored);
-        const foundOrder = orders.find((o) => String(o.id) === String(id));
-        setOrder(foundOrder || null);
+    const fetchOrder = async () => {
+      try {
+        const data = await getOrderById(id);
+        setOrder(data);
+      } catch (error) {
+        console.error("Error obteniendo la orden", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error al obtener la orden", error);
-    } finally {
-      setLoading(false);
-    }
+    };
+
+    fetchOrder();
   }, [id]);
 
-  /**
-   * ⚠️ Mostrar toast SOLO cuando la orden pasa a cancelada
-   * (Nunca en el render)
-   */
-  useEffect(() => {
-    if (order?.status === "cancelled") {
-      showToast("La orden fue cancelada", "error");
+  /* ---------------- CANCEL ORDER ---------------- */
+  const handleCancelOrder = async () => {
+    try {
+      const updated = await updateOrderStatus(order.id, "cancelled");
+      setOrder(updated);
+      showToast("Orden cancelada", "error");
+    } catch (error) {
+      console.error(error);
+      showToast("Error al cancelar la orden", "error");
     }
-  }, [order?.status, showToast]);
+  };
+
+  /* ---------------- REORDER ---------------- */
+  const handleReorder = () => {
+    addManyToCart(order.items);
+    showToast("Productos agregados nuevamente al carrito", "success");
+    navigate("/shop");
+  };
+
+  /* ---------------- UI STATES ---------------- */
 
   if (loading) return <p>Cargando detalles de la orden...</p>;
 
@@ -59,25 +71,6 @@ const OrderDetail = () => {
   }
 
   const formattedDate = new Date(order.createdAt).toLocaleString("es-AR");
-
-  /**
-   * ❌ Cancelar orden
-   */
-  const handleCancelOrder = () => {
-    const updated = { ...order, status: "cancelled" };
-    updateOrder(updated);
-    setOrder(updated);
-  };
-
-  /**
-   * 🔁 Reordenar
-   */
-  const handleReorder = () => {
-    addManyToCart(order.items);
-    showToast("Productos agregados nuevamente al carrito", "success");
-    navigate("/shop");
-  };
-
   const status = order.status || "pending";
 
   return (
@@ -85,9 +78,7 @@ const OrderDetail = () => {
       <h2>Detalle de la Orden #{order.id}</h2>
 
       <div className={style.info}>
-        <p>
-          <strong>Fecha:</strong> {formattedDate}
-        </p>
+        <p><strong>Fecha:</strong> {formattedDate}</p>
 
         <p>
           <strong>Total pagado:</strong>{" "}
@@ -107,9 +98,9 @@ const OrderDetail = () => {
 
       <h3>Datos del comprador</h3>
       <div className={style.customer}>
-        <p><strong>Nombre:</strong> {order.custom?.name}</p>
-        <p><strong>Email:</strong> {order.custom?.email}</p>
-        <p><strong>Dirección:</strong> {order.custom?.address}</p>
+        <p><strong>Nombre:</strong> {order.customer?.name}</p>
+        <p><strong>Email:</strong> {order.customer?.email}</p>
+        <p><strong>Dirección:</strong> {order.customer?.address}</p>
       </div>
 
       <h3>Productos</h3>
