@@ -55,17 +55,38 @@ const Orders = () => {
       {/* 📄 PAGINACIÓN */}
       {totalPages > 1 && (
         <div className={style.pagination}>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              disabled={currentPage === i + 1}
-            >
-              {i + 1}
-            </button>
-          ))}
+          {/* Boton anterior */}
+          <button
+            onClick={() => setCurrentPages((prev) => prev - 1)}
+            disabled={currentPage === 1}
+          >
+            «
+          </button>
+
+          {Array.from({ length: totalPages }, (_, i) => i + 1)
+            .filter((page) => {
+              const delta = 2; // cuántas páginas mostrar a cada lado
+              return page >= currentPage - delta && page <= currentPage + delta;
+            })
+            .map((page) => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={currentPage === page ? style.active : ""}
+              >
+                {page}
+              </button>
+            ))}
         </div>
       )}
+
+      {/* Boton siguiente */}
+      <button
+        onClick={() => setCurrentPages((prev) => prev + 1)}
+        disabled={currentPage === 1}
+      >
+        »
+      </button>
 
       {!paginatedOrders.length && (
         <p>No hay órdenes que coincidan con los filtros.</p>
