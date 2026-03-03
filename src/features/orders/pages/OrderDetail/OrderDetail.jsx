@@ -9,6 +9,7 @@ import {
   getOrderById,
   updateOrderStatus,
 } from "../../../../services/orderService/orderService.js";
+import { useOrders } from '../../hooks/useOrders.js'
 
 const OrderDetail = () => {
   const { id } = useParams();
@@ -19,6 +20,8 @@ const OrderDetail = () => {
 
   const { addManyToCart } = useCart();
   const { showToast } = useToast();
+
+  const { cancelOrder } = useOrders();
 
   /* ---------------- FETCH ORDER ---------------- */
   useEffect(() => {
@@ -37,7 +40,8 @@ const OrderDetail = () => {
   }, [id]);
 
   /* ---------------- CANCEL ORDER ---------------- */
-  const handleCancelOrder = async () => {
+  /*
+    const handleCancelOrder = async () => {
     try {
       const updated = await updateOrderStatus(order.id, "cancelled");
       setOrder(updated);
@@ -47,6 +51,19 @@ const OrderDetail = () => {
       showToast("Error al cancelar la orden", "error");
     }
   };
+  */
+
+
+  const handleCancelOrder = async () => {
+  try {
+    await cancelOrder(order.id);
+    setOrder((prev) => ({ ...prev, status: "cancelled" }));
+  } catch {
+    showToast("No se pudo cancelar la orden", "error");
+  }
+};
+
+
 
   /* ---------------- REORDER ---------------- */
   const handleReorder = () => {
