@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import style from "./orders.module.scss";
 import OrderCard from "../../components/OrderCard/OrderCard.jsx";
 import { useOrders } from "../../hooks/useOrders.js";
 
 const Orders = () => {
-  const navigate = useNavigate();
 
   const {
     paginatedOrders,
@@ -17,11 +16,31 @@ const Orders = () => {
     setSearch,
     statusFilter,
     setStatusFilter,
+    filteredOrders,
   } = useOrders();
 
-  if (loading) return <p>Cargando órdenes...</p>;
+  /* ---------------- SCROLL ON PAGE CHANGE ---------------- */
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
+
+  if (loading) return <p>Cargando órdenes...</p>;
   if (error) return <p>{error}</p>;
+
+  /* ---------------- PAGINATION HANDLERS ---------------- */
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
 
   return (
     <section className={style.container}>
@@ -45,6 +64,10 @@ const Orders = () => {
         <option value="cancelled">Canceladas</option>
       </select>
 
+      <p>
+        Mostrando {paginatedOrders.length} de {filteredOrders.length} órdenes
+      </p>
+
       {/* 📦 LISTADO */}
       <div className={style.list}>
         {paginatedOrders.map((order) => (
@@ -55,9 +78,9 @@ const Orders = () => {
       {/* 📄 PAGINACIÓN */}
       {totalPages > 1 && (
         <div className={style.pagination}>
-          {/* Boton anterior */}
+          {/* Botón anterior */}
           <button
-            onClick={() => setCurrentPages((prev) => prev - 1)}
+            onClick={handlePrev}
             disabled={currentPage === 1}
           >
             «
@@ -65,8 +88,11 @@ const Orders = () => {
 
           {Array.from({ length: totalPages }, (_, i) => i + 1)
             .filter((page) => {
-              const delta = 2; // cuántas páginas mostrar a cada lado
-              return page >= currentPage - delta && page <= currentPage + delta;
+              const delta = 2;
+              return (
+                page >= currentPage - delta &&
+                page <= currentPage + delta
+              );
             })
             .map((page) => (
               <button
@@ -77,16 +103,16 @@ const Orders = () => {
                 {page}
               </button>
             ))}
+
+          {/* Botón siguiente */}
+          <button
+            onClick={handleNext}
+            disabled={currentPage === totalPages}
+          >
+            »
+          </button>
         </div>
       )}
-
-      {/* Boton siguiente */}
-      <button
-        onClick={() => setCurrentPages((prev) => prev + 1)}
-        disabled={currentPage === 1}
-      >
-        »
-      </button>
 
       {!paginatedOrders.length && (
         <p>No hay órdenes que coincidan con los filtros.</p>
