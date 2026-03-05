@@ -1,16 +1,189 @@
-# React + Vite
+# 🛒 Mi Tienda Online
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación de e-commerce desarrollada con **React + Vite** que simula una tienda online completa con carrito de compras, checkout, historial de órdenes, búsqueda, filtros y paginación.
 
-Currently, two official plugins are available:
+🔗 **Demo en producción**
+https://mi-online.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+# 📦 Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🛍 Catálogo de productos
 
-## Expanding the ESLint configuration
+* Listado de productos
+* Visualización de imagen, precio y descripción
+* Agregar productos al carrito
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🛒 Carrito de compras
+
+* Agregar productos
+* Incrementar / decrementar cantidad
+* Eliminar productos
+* Vaciar carrito
+* Persistencia del carrito
+
+### 💳 Checkout
+
+* Formulario de compra
+* Validación de campos
+* Generación de orden
+* Simulación de API para crear órdenes
+* Redirección a página de compra exitosa
+
+### 📦 Historial de órdenes
+
+* Visualización de órdenes realizadas
+* Ordenadas por fecha
+* Detalle de cada compra
+
+### 🔎 Búsqueda y filtros
+
+* Buscar órdenes por ID o producto
+* Filtrar por estado de orden
+* Sincronización con la URL
+
+### 📄 Paginación
+
+* Navegación entre páginas de órdenes
+* Paginación dinámica
+* Indicador de página actual
+* Scroll automático al cambiar página
+
+### 🧭 Estados UX
+
+* Carrito vacío
+* Sin órdenes
+* Sin resultados de búsqueda
+
+---
+
+# ♿ Accesibilidad
+
+Se aplicaron buenas prácticas de accesibilidad:
+
+* `aria-label` en botones interactivos
+* `aria-current` en paginación
+* `aria-live` para actualización dinámica de resultados
+* `alt` en imágenes
+* `label` asociado a inputs
+
+---
+
+# 🧠 Arquitectura del proyecto
+
+El proyecto sigue una estructura modular basada en **features** para facilitar escalabilidad.
+
+```
+src
+ ┣ components
+ ┃ ┗ componentes reutilizables
+ ┣ features
+ ┃ ┣ cart
+ ┃ ┗ orders
+ ┣ hooks
+ ┃ ┗ hooks personalizados
+ ┣ services
+ ┃ ┗ simulación de API
+ ┣ pages
+ ┃ ┗ páginas principales
+ ┣ layouts
+ ┃ ┗ layout principal de la aplicación
+```
+
+---
+
+# ⚙️ Tecnologías utilizadas
+
+* **React**
+* **React Router**
+* **Context API**
+* **Custom Hooks**
+* **SCSS Modules**
+* **Vite**
+* **LocalStorage**
+* **Fake API Service**
+
+---
+
+# 🚀 Instalación y ejecución
+
+Clonar el repositorio:
+
+```bash
+git clone https://github.com/Soymigueprogramador/mi-tienda-online.git
+```
+
+Entrar al proyecto:
+
+```bash
+cd tu-repo
+```
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Ejecutar el proyecto:
+
+```bash
+npm run dev
+```
+
+---
+
+# 🏗 Build para producción
+
+```bash
+npm run build
+```
+
+Esto generará la carpeta:
+
+```
+dist
+```
+
+Lista para deploy.
+
+---
+
+# 🌐 Deploy
+
+El proyecto está desplegado en **Netlify**.
+
+Build command:
+
+```
+npm run build
+```
+
+Publish directory:
+
+```
+dist
+```
+
+---
+
+# 📚 Conceptos aplicados
+
+* Componentización
+* Custom Hooks
+* Manejo global de estado con Context
+* Persistencia de datos
+* Simulación de API
+* Manejo de formularios
+* Accesibilidad web
+* Arquitectura escalable
+* UX states
+
+---
+
+# 👨‍💻 Autor
+
+Desarrollado por **Miguel Salazar**
+
+Proyecto creado como práctica avanzada de **Frontend con React**.
