@@ -1,9 +1,11 @@
+import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import style from "./orders.module.scss";
 import OrderCard from "../../components/OrderCard/OrderCard.jsx";
 import { useOrders } from "../../hooks/useOrders.js";
 
 const Orders = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const {
     paginatedOrders,
@@ -19,17 +21,21 @@ const Orders = () => {
     filteredOrders,
   } = useOrders();
 
-  /* ---------------- SCROLL ON PAGE CHANGE ---------------- */
-
+  /* ---------------- SCROLL + URL SYNC ---------------- */
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [currentPage]);
+
+    setSearchParams({
+      page: currentPage,
+      status: statusFilter,
+      search,
+    });
+  }, [currentPage, search, statusFilter, setSearchParams]);
 
   if (loading) return <p>Cargando órdenes...</p>;
   if (error) return <p>{error}</p>;
 
   /* ---------------- PAGINATION HANDLERS ---------------- */
-
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
@@ -42,6 +48,15 @@ const Orders = () => {
     }
   };
 
+  const delta = 2;
+
+  const visiblePages = Array.from(
+    { length: totalPages },
+    (_, i) => i + 1
+  ).filter(
+    (page) => page >= currentPage - delta && page <= currentPage + delta
+  );
+
   return (
     <section className={style.container}>
       <h1 className={style.title}>Mis compras</h1>
@@ -51,20 +66,27 @@ const Orders = () => {
         type="text"
         placeholder="Buscar por ID o nombre"
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          setCurrentPage(1);
+        }}
       />
 
       {/* 🎛 FILTRO */}
       <select
         value={statusFilter}
-        onChange={(e) => setStatusFilter(e.target.value)}
+        onChange={(e) => {
+          setStatusFilter(e.target.value);
+          setCurrentPage(1);
+        }}
       >
         <option value="all">Todos</option>
         <option value="pending">Pendientes</option>
         <option value="cancelled">Canceladas</option>
       </select>
 
-      <p>
+      {/* 📊 CONTADOR */}
+      <p aria-live="polite">
         Mostrando {paginatedOrders.length} de {filteredOrders.length} órdenes
       </p>
 
@@ -77,41 +99,41 @@ const Orders = () => {
 
       {/* 📄 PAGINACIÓN */}
       {totalPages > 1 && (
-        <div className={style.pagination}>
-          {/* Botón anterior */}
+        <nav className={style.pagination} aria-label="Paginación">
+          {/* Anterior */}
           <button
             onClick={handlePrev}
             disabled={currentPage === 1}
+            aria-label="Página anterior"
           >
             «
           </button>
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1)
-            .filter((page) => {
-              const delta = 2;
-              return (
-                page >= currentPage - delta &&
-                page <= currentPage + delta
-              );
-            })
-            .map((page) => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={currentPage === page ? style.active : ""}
-              >
-                {page}
-              </button>
-            ))}
+          {visiblePages.map((page) => (
+            <button
+              key={page}
+              onClick={() => {
+                if (page !== currentPage) {
+                  setCurrentPage(page);
+                }
+              }}
+              className={currentPage === page ? style.active : ""}
+              aria-label={`Página ${page}`}
+              aria-current={currentPage === page ? "page" : undefined}
+            >
+              {page}
+            </button>
+          ))}
 
-          {/* Botón siguiente */}
+          {/* Siguiente */}
           <button
             onClick={handleNext}
             disabled={currentPage === totalPages}
+            aria-label="Página siguiente"
           >
             »
           </button>
-        </div>
+        </nav>
       )}
 
       {!paginatedOrders.length && (

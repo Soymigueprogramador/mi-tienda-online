@@ -201,7 +201,10 @@ const Checkout = () => {
               <button onClick={() => increment(item.id)}>+</button>
             </div>
 
-            <button onClick={() => removeFromCart(item.id)}>
+            <button
+              onClick={() => removeFromCart(item.id)}
+              aria-label={`Eliminar ${item.title} del carrito`}
+            >
               Eliminar producto
             </button>
           </article>
@@ -211,6 +214,7 @@ const Checkout = () => {
       <section className={style.form}>
         <h2>Datos de la compra</h2>
 
+        <label htmlFor="name"> Nombre </label>
         <input
           type="text"
           name="name"
@@ -220,6 +224,7 @@ const Checkout = () => {
         />
         {errors.name && <span className={style.errors}>{errors.name}</span>}
 
+        <label htmlFor="email"> Email </label>
         <input
           type="email"
           name="email"
@@ -229,6 +234,7 @@ const Checkout = () => {
         />
         {errors.email && <span className={style.errors}>{errors.email}</span>}
 
+        <label htmlFor="address"> Direccion </label>
         <input
           type="text"
           name="address"

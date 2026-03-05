@@ -11,7 +11,7 @@ const Shop = () => {
       <ProductGrid />
 
       <p>
-        Producto cargado en el carrito:
+
         {
           items.length
         }
