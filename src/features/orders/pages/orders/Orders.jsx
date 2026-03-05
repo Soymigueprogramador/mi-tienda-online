@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import style from "./orders.module.scss";
 import OrderCard from "../../components/OrderCard/OrderCard.jsx";
 import { useOrders } from "../../hooks/useOrders.js";
+import EmptyState from "../../../../components/EmptyState/EmptyState.jsx";
 
 const Orders = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,6 +35,19 @@ const Orders = () => {
 
   if (loading) return <p>Cargando órdenes...</p>;
   if (error) return <p>{error}</p>;
+
+  /* ---------------- EMPTY STATE (SIN ÓRDENES REALES) ---------------- */
+  if (!filteredOrders.length && !search && statusFilter === "all") {
+    return (
+      <EmptyState
+        icon="📦"
+        title="No tenés órdenes todavía"
+        message="Cuando compres algo aparecerá aquí."
+        actionText="Ir a la tienda"
+        onAction={() => (window.location.href = "/shop")}
+      />
+    );
+  }
 
   /* ---------------- PAGINATION HANDLERS ---------------- */
   const handlePrev = () => {
@@ -100,7 +114,6 @@ const Orders = () => {
       {/* 📄 PAGINACIÓN */}
       {totalPages > 1 && (
         <nav className={style.pagination} aria-label="Paginación">
-          {/* Anterior */}
           <button
             onClick={handlePrev}
             disabled={currentPage === 1}
@@ -125,7 +138,6 @@ const Orders = () => {
             </button>
           ))}
 
-          {/* Siguiente */}
           <button
             onClick={handleNext}
             disabled={currentPage === totalPages}
@@ -136,8 +148,13 @@ const Orders = () => {
         </nav>
       )}
 
-      {!paginatedOrders.length && (
-        <p>No hay órdenes que coincidan con los filtros.</p>
+      {/* 🔎 EMPTY STATE (SIN RESULTADOS DE BÚSQUEDA) */}
+      {!paginatedOrders.length && filteredOrders.length > 0 && (
+        <EmptyState
+          icon="🔎"
+          title="No encontramos resultados"
+          message="Probá cambiar los filtros o el texto de búsqueda."
+        />
       )}
     </section>
   );

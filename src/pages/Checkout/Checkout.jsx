@@ -4,6 +4,9 @@ import { useCart } from "../../features/cart/hooks/useCart.js";
 //import { saveOrder } from "../../features/orders/utils/orderStorage.js";
 
 import { createOrder } from '../../services/orderService/orderService.js'
+
+import EmptyState from '../../components/EmptyState/EmptyState.jsx';
+
 import style from "./Checkout.module.scss";
 
 const Checkout = () => {
@@ -22,21 +25,20 @@ const Checkout = () => {
     useCart();
 
   /* ---------------- EMPTY STATE CONTROLADO ---------------- */
-  if (!items || items.length === 0) {
-    return (
-      <section className={style.empty}>
-        <h2>Tu carrito está vacío</h2>
-        <p>No hay productos para finalizar la compra.</p>
+  
 
-        <button
-          onClick={() => navigate("/shop")}
-          className={style.backToShop}
-        >
-          Ir a la tienda
-        </button>
-      </section>
-    );
-  }
+/* ---------------- EMPTY STATE ---------------- */
+if (!items.length) {
+  return (
+    <EmptyState
+      icon="🛒"
+      title="Tu carrito está vacío"
+      message="Agregá productos para comenzar tu compra."
+      actionText="Ir a la tienda"
+      onAction={() => navigate("/shop")}
+    />
+  );
+}
 
   /* ---------------- VALIDACIÓN ---------------- */
   const validateForm = () => {
