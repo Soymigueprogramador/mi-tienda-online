@@ -1,44 +1,48 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
 
 /* ---------------- HERO ---------------- */
 
 .hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: $space-5;
+
+  padding: $space-6 $space-4;
   min-height: 70vh;
 
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---------------- CONTENIDO ---------------- */
+
+.content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  gap: $space-3;
 
-  text-align: center;
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $color-text;
+    line-height: 1.2;
+  }
 
-  padding: $space-5 $space-4;
-
-  background: linear-gradient(
-    135deg,
-    #f8f9fb,
-    #ffffff
-  );
+  p {
+    font-size: 1rem;
+    max-width: 500px;
+  }
 }
 
-/* ---------------- TITLE ---------------- */
-
-.hero h1 {
-  max-width: 700px;
-
-  font-size: 2.6rem;
-  line-height: 1.3;
-
-  color: $color-text;
-
-  margin-bottom: $space-4;
-}
-
-/* ---------------- BUTTON ---------------- */
+/* ---------------- BOTÓN ---------------- */
 
 .button {
   display: inline-block;
 
+  width: fit-content;
+
+  margin-top: $space-2;
   padding: $space-2 $space-4;
 
   background: $color-primary;
@@ -46,64 +50,156 @@
 
   text-decoration: none;
   font-weight: 600;
-  font-size: 1.1rem;
 
-  border-radius: 8px;
+  border-radius: $radius-md;
 
-  transition: transform 0.15s ease,
-              box-shadow 0.15s ease,
-              background 0.2s ease;
+  transition: all 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    background: darken($color-primary, 8%);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 }
 
-.button:hover {
-  transform: translateY(-2px);
+/* ---------------- IMAGEN ---------------- */
 
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+.image {
+  width: 100%;
+
+  img {
+    width: 100%;
+    height: auto;
+
+    border-radius: $radius-lg;
+
+    object-fit: cover;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
 }
 
 /* ---------------- TABLET ---------------- */
 
-@media (max-width: 900px) {
+@media (min-width: 768px) {
 
   .hero {
-    min-height: 60vh;
-    padding: $space-4 $space-3;
+    grid-template-columns: 1fr 1fr;
+    gap: $space-6;
   }
 
-  .hero h1 {
-    font-size: 2rem;
-    max-width: 550px;
+  .content {
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
   }
 
 }
 
-/* ---------------- MOBILE ---------------- */
+/* ---------------- DESKTOP ---------------- */
 
-@media (max-width: 600px) {
+@media (min-width: 1024px) {
 
   .hero {
-    min-height: 55vh;
+    min-height: 80vh;
+    gap: $space-7;
   }
 
-  .hero h1 {
-    font-size: 1.6rem;
+  .content {
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
   }
 
   .button {
-    width: 100%;
-    max-width: 250px;
-
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
 }
 
-/* ---------------- MOBILE PEQUEÑO ---------------- */
+/* ---------------- LARGE DESKTOP ---------------- */
 
-@media (max-width: 400px) {
+@media (min-width: 1280px) {
 
-  .hero h1 {
-    font-size: 1.4rem;
+  .hero {
+    padding: $space-7 $space-5;
+  }
+
+  .content h1 {
+    font-size: 3.2rem;
+  }
+
+}
+
+/* ---------------- FEATURES ---------------- */
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  padding: 3rem 1.5rem;
+  background: #f8f9fa;
+  text-align: center;
+}
+
+.features div {
+  background: white;
+  border-radius: 10px;
+
+  padding: 1.5rem;
+
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* hover suave */
+
+.features div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* ---------------- TABLET ---------------- */
+
+@media (min-width: 768px) {
+
+  .features {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 4rem 2rem;
+  }
+
+}
+
+/* ---------------- DESKTOP ---------------- */
+
+@media (min-width: 1024px) {
+
+  .features {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .features div {
+    font-size: 1.2rem;
+    padding: 2rem;
   }
 
 }
