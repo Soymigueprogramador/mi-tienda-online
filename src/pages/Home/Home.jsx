@@ -1,11 +1,20 @@
-import React from 'react'
+import style from "./Home.module.scss";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div>
-      <h1> Pagina de inicio </h1>
-    </div>
-  )
-}
+    <section className={style.hero}>
 
-export default Home
+      <h1>
+        Descubrí nuestros productos y comprá fácil.
+      </h1>
+
+      <Link to="/shop" className={style.button}>
+        Ir a la tienda
+      </Link>
+
+    </section>
+  );
+};
+
+export default Home;

@@ -1,0 +1,137 @@
+@use '../../styles/variables' as *;
+
+/* ---------------- CONTAINER ---------------- */
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+
+  padding: $space-5 $space-4;
+
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+/* ---------------- TITLE ---------------- */
+
+.container h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: $color-text;
+}
+
+/* ---------------- FORM ---------------- */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+
+  background: white;
+  padding: $space-4;
+
+  border: 1px solid $color-border;
+  border-radius: 8px;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* ---------------- INPUTS ---------------- */
+
+input,
+textarea {
+  width: 100%;
+  padding: $space-2;
+
+  border: 1px solid $color-border;
+  border-radius: 6px;
+
+  font-size: 1rem;
+
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* textarea tamaño */
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* focus accesible */
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: $color-primary;
+
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+}
+
+/* ---------------- BUTTON ---------------- */
+
+button {
+  padding: $space-2 $space-3;
+
+  border: none;
+  border-radius: 6px;
+
+  background: $color-primary;
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* ---------------- TABLET ---------------- */
+
+@media (max-width: 900px) {
+
+  .container {
+    padding: $space-4 $space-3;
+  }
+
+  form {
+    padding: $space-3;
+  }
+
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width: 600px) {
+
+  .container h1 {
+    font-size: 1.6rem;
+  }
+
+  input,
+  textarea {
+    font-size: 0.95rem;
+  }
+
+  button {
+    width: 100%;
+  }
+
+}
+
+/* ---------------- MOBILE PEQUEÑO ---------------- */
+
+@media (max-width: 400px) {
+
+  .container {
+    padding: $space-3 $space-2;
+  }
+
+}

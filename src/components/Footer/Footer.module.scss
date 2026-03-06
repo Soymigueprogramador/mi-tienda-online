@@ -1,0 +1,105 @@
+@use '../../styles/variables' as *;
+
+/* ---------------- FOOTER ---------------- */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: $space-4 $space-4;
+  margin-top: $space-5;
+
+  border-top: 1px solid $color-border;
+  background: #fafafa;
+
+  font-size: 0.9rem;
+  color: $color-text;
+}
+
+/* ---------------- LINKS ---------------- */
+
+.links {
+  display: flex;
+  gap: $space-4;
+}
+
+.links a {
+  text-decoration: none;
+  color: $color-text;
+  font-weight: 500;
+
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.links a:hover {
+  color: $color-primary;
+}
+
+/* underline animado */
+
+.links a::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  bottom: -3px;
+
+  width: 0%;
+  height: 2px;
+
+  background: $color-primary;
+
+  transition: width 0.2s ease;
+}
+
+.links a:hover::after {
+  width: 100%;
+}
+
+/* ---------------- TEXTO FINAL ---------------- */
+
+.made {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* ---------------- TABLET ---------------- */
+
+@media (max-width: 900px) {
+
+  .footer {
+    flex-direction: column;
+    gap: $space-3;
+    text-align: center;
+  }
+
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width: 600px) {
+
+  .links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $space-3;
+  }
+
+}
+
+/* ---------------- MOBILE PEQUEÑO ---------------- */
+
+@media (max-width: 400px) {
+
+  .footer {
+    font-size: 0.8rem;
+    padding: $space-3;
+  }
+
+  .links {
+    gap: $space-2;
+  }
+
+}

@@ -1,22 +1,165 @@
 @use '../../styles/variables' as *;
 
+/* ---------------- HEADER ---------------- */
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   padding: $space-3 $space-4;
+
   border-bottom: 1px solid $color-border;
   background: white;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
+
+/* ---------------- LOGO ---------------- */
+
+.logo {
+  font-size: 1.8rem;
+  text-decoration: none;
+  color: $color-text;
+
+  display: flex;
+  align-items: center;
+
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* ---------------- NAV LINKS ---------------- */
 
 .nav {
   display: flex;
-  gap: $space-3;
+  align-items: center;
+  gap: $space-4;
+
+  transition: all 0.25s ease;
 }
 
-.logo {
-  font-weight: 700;
+.nav a {
   text-decoration: none;
   color: $color-text;
+  font-weight: 500;
+
+  position: relative;
+
+  transition: color 0.2s ease;
+}
+
+.nav a:hover {
+  color: $color-primary;
+}
+
+/* underline animado */
+
+.nav a::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  bottom: -4px;
+
+  width: 0%;
+  height: 2px;
+
+  background: $color-primary;
+
+  transition: width 0.2s ease;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+/* ---------------- CART WIDGET ---------------- */
+
+.cart {
+  display: flex;
+  align-items: center;
+}
+
+/* ---------------- MENU BUTTON (HAMBURGUESA) ---------------- */
+
+.menuButton {
+  display: none;
+
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+
+  cursor: pointer;
+
+  color: $color-text;
+}
+
+/* ---------------- TABLET ---------------- */
+
+@media (max-width: 900px) {
+
+  .header {
+    padding: $space-3;
+  }
+
+  .nav {
+    gap: $space-3;
+  }
+
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width: 640px) {
+
+  .menuButton {
+    display: block;
+  }
+
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .nav {
+    position: absolute;
+
+    top: 70px;
+    left: 0;
+
+    width: 100%;
+
+    background: white;
+
+    flex-direction: column;
+    align-items: center;
+
+    gap: $space-3;
+    padding: $space-3;
+
+    border-bottom: 1px solid $color-border;
+
+    display: none;
+  }
+
+  .open {
+    display: flex;
+  }
+
+}
+
+/* ---------------- MOBILE PEQUEÑO ---------------- */
+
+@media (max-width: 400px) {
+
+  .nav {
+    font-size: 0.9rem;
+    gap: $space-2;
+  }
+
 }
