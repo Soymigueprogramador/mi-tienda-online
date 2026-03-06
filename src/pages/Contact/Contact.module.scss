@@ -1,6 +1,8 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
 
-/* ---------------- CONTAINER ---------------- */
+/* =========================
+   CONTAINER
+========================= */
 
 .container {
   max-width: 700px;
@@ -13,7 +15,9 @@
   gap: $space-4;
 }
 
-/* ---------------- TITLE ---------------- */
+/* =========================
+   TITLE
+========================= */
 
 .container h1 {
   text-align: center;
@@ -21,9 +25,11 @@
   color: $color-text;
 }
 
-/* ---------------- FORM ---------------- */
+/* =========================
+   FORM
+========================= */
 
-form {
+.container form {
   display: flex;
   flex-direction: column;
   gap: $space-3;
@@ -34,13 +40,15 @@ form {
   border: 1px solid $color-border;
   border-radius: 8px;
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* ---------------- INPUTS ---------------- */
+/* =========================
+   INPUTS
+========================= */
 
-input,
-textarea {
+.container input,
+.container textarea {
   width: 100%;
   padding: $space-2;
 
@@ -52,26 +60,27 @@ textarea {
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* textarea tamaño */
+/* focus */
 
-textarea {
+.container input:focus,
+.container textarea:focus {
+  outline: none;
+  border-color: $color-primary;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+/* textarea */
+
+.container textarea {
   min-height: 120px;
   resize: vertical;
 }
 
-/* focus accesible */
+/* =========================
+   BUTTON
+========================= */
 
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: $color-primary;
-
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
-}
-
-/* ---------------- BUTTON ---------------- */
-
-button {
+.container button {
   padding: $space-2 $space-3;
 
   border: none;
@@ -88,12 +97,22 @@ button {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-button:hover {
+.container button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* ---------------- TABLET ---------------- */
+/* =========================
+   AUXILIAR
+========================= */
+
+.header_text {
+  text-align: center;
+}
+
+/* =========================
+   TABLET
+========================= */
 
 @media (max-width: 900px) {
 
@@ -101,13 +120,15 @@ button:hover {
     padding: $space-4 $space-3;
   }
 
-  form {
+  .container form {
     padding: $space-3;
   }
 
 }
 
-/* ---------------- MOBILE ---------------- */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 600px) {
 
@@ -115,18 +136,20 @@ button:hover {
     font-size: 1.6rem;
   }
 
-  input,
-  textarea {
+  .container input,
+  .container textarea {
     font-size: 0.95rem;
   }
 
-  button {
+  .container button {
     width: 100%;
   }
 
 }
 
-/* ---------------- MOBILE PEQUEÑO ---------------- */
+/* =========================
+   MOBILE SMALL
+========================= */
 
 @media (max-width: 400px) {
 

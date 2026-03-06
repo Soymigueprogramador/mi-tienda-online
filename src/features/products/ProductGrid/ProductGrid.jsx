@@ -9,6 +9,14 @@ const ProductGrid = () => {
 
   return (
     <>
+      <h1 className={style.header_text}>
+        Nuestros productos
+      </h1>
+
+      <p className={style.header_text}>
+        Esperamos que aqui puedas encontrar ese producto que estas buscando
+      </p>
+
       <section className={style.grid}>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />

@@ -24,7 +24,13 @@ const Contact = () => {
 
   return (
     <section className={style.container}>
-      <h1>Contacto</h1>
+      <h1 className={style.header_text}>Formulario de contacto</h1>
+      <p className={style.header_text}>
+        Te invitamos a que te pongas en contacto con nosotros mediante este
+        formulario. <br></br>
+        Te responderemos lo antes posible.
+        Desde ya muchas gracias!!
+      </p>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="name"> Nombre </label>
@@ -51,9 +57,7 @@ const Contact = () => {
           onChange={handleChange}
         />
 
-        <button type="submit">
-          Enviar mensaje
-        </button>
+        <button type="submit">Enviar mensaje</button>
       </form>
     </section>
   );
