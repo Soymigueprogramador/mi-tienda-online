@@ -1,61 +1,146 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
+
+/* =========================
+   CONTENEDOR
+========================= */
 
 .container {
+  width: 100%;
   max-width: 900px;
-  margin: auto;
-  padding: 2rem;
+  margin: 0 auto;
+
+  padding: clamp(1rem, 4vw, 2rem);
+
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.2rem, 3vw, 2rem);
 }
+
+/* =========================
+   ITEM DEL CARRITO
+========================= */
 
 .item {
   display: grid;
-  grid-template-columns: 80px 1fr auto auto;
-  gap: 1rem;
+  grid-template-columns: 70px 1fr auto auto;
+  gap: clamp(0.6rem, 2vw, 1rem);
+
   align-items: center;
-  padding: 1rem 0;
+
+  padding: clamp(0.8rem, 2vw, 1rem) 0;
+
   border-bottom: 1px solid #eee;
 }
 
-.controls button {
-  width: 30px;
+/* Imagen producto */
+
+.item img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
+/* =========================
+   CONTROLES CANTIDAD
+========================= */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  button {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background: white;
+
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f5f5f5;
+    }
+  }
+}
+
+/* =========================
+   RESUMEN
+========================= */
+
 .summary {
-  margin-top: 2rem;
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+
+  gap: 1rem;
 }
+
+/* =========================
+   BOTÓN COMPRAR
+========================= */
 
 .buy {
   background: black;
   color: white;
-  padding: 0.8rem 1.2rem;
+
+  padding: 0.9rem 1.4rem;
+  border-radius: 8px;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  }
 }
 
+/* =========================
+   FORMULARIO CHECKOUT
+========================= */
+
 .form {
-  margin-top: 2.5rem;
-  padding: 2rem;
+  margin-top: clamp(2rem, 4vw, 2.5rem);
+
+  padding: clamp(1.5rem, 4vw, 2rem);
+
   background: #ffffff;
   border-radius: 12px;
+
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
 
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.1rem;
 
   h2 {
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
     font-weight: 600;
     color: #1a1a1a;
-    margin-bottom: 0.5rem;
   }
 
   input {
     height: 48px;
+
     padding: 0 14px;
+
     border-radius: 8px;
     border: 1px solid #dcdcdc;
+
     font-size: 0.95rem;
+
     transition: all 0.2s ease;
 
     &::placeholder {
@@ -70,9 +155,51 @@
   }
 }
 
+/* =========================
+   ERRORES
+========================= */
+
 .errors {
   color: #ff4d4f;
+
   font-size: 0.85rem;
-  margin-top: -6px;
-  margin-bottom: 10px;
+
+  margin-top: -4px;
+  margin-bottom: 6px;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+  .item {
+    grid-template-columns: 60px 1fr auto;
+  }
+
+  .summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .buy {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+  .item {
+    grid-template-columns: 60px 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .controls {
+    grid-column: span 2;
+    justify-content: flex-start;
+  }
 }

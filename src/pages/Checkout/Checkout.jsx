@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../features/cart/hooks/useCart.js";
-//import { saveOrder } from "../../features/orders/utils/orderStorage.js";
 
-import { createOrder } from '../../services/orderService/orderService.js'
+import { createOrder } from "../../services/orderService/orderService.js";
 
-import EmptyState from '../../components/EmptyState/EmptyState.jsx';
+import EmptyState from "../../components/EmptyState/EmptyState.jsx";
 
 import style from "./Checkout.module.scss";
 
@@ -25,20 +24,19 @@ const Checkout = () => {
     useCart();
 
   /* ---------------- EMPTY STATE CONTROLADO ---------------- */
-  
 
-/* ---------------- EMPTY STATE ---------------- */
-if (!items.length) {
-  return (
-    <EmptyState
-      icon="🛒"
-      title="Tu carrito está vacío"
-      message="Agregá productos para comenzar tu compra."
-      actionText="Ir a la tienda"
-      onAction={() => navigate("/shop")}
-    />
-  );
-}
+  /* ---------------- EMPTY STATE ---------------- */
+  if (!items.length) {
+    return (
+      <EmptyState
+        icon="🛒"
+        title="Tu carrito está vacío"
+        message="Agregá productos para comenzar tu compra."
+        actionText="Ir a la tienda"
+        onAction={() => navigate("/shop")}
+      />
+    );
+  }
 
   /* ---------------- VALIDACIÓN ---------------- */
   const validateForm = () => {
@@ -118,55 +116,50 @@ if (!items.length) {
   };
   */
 
-
-
   const handleCheckout = async () => {
-  if (!validateForm()) return;
+    if (!validateForm()) return;
 
-  setIsSubmitting(true);
+    setIsSubmitting(true);
 
-  const orderId = crypto.randomUUID();
+    const orderId = crypto.randomUUID();
 
-  const order = {
-    id: orderId,
-    items: items.map((item) => ({ ...item })),
-    total: totalPrice,
-    createdAt: new Date().toISOString(),
-    status: "pending",
-    customer: {
-      name: form.name,
-      email: form.email,
-      address: form.address,
-    },
+    const order = {
+      id: orderId,
+      items: items.map((item) => ({ ...item })),
+      total: totalPrice,
+      createdAt: new Date().toISOString(),
+      status: "pending",
+      customer: {
+        name: form.name,
+        email: form.email,
+        address: form.address,
+      },
+    };
+
+    try {
+      // 🔹 ahora usamos el service (simula API real)
+      await createOrder(order);
+
+      // 🔹 limpiar carrito después de guardar
+      clearCart();
+
+      // 🔹 resetear formulario
+      setForm({
+        name: "",
+        email: "",
+        address: "",
+      });
+
+      // 🔹 navegar al success
+      navigate("/checkout/order-success", {
+        state: { orderId },
+      });
+    } catch (error) {
+      console.error("Error al crear la orden", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
-  try {
-    // 🔹 ahora usamos el service (simula API real)
-    await createOrder(order);
-
-    // 🔹 limpiar carrito después de guardar
-    clearCart();
-
-    // 🔹 resetear formulario
-    setForm({
-      name: "",
-      email: "",
-      address: "",
-    });
-
-    // 🔹 navegar al success
-    navigate("/checkout/order-success", {
-      state: { orderId },
-    });
-  } catch (error) {
-    console.error("Error al crear la orden", error);
-  } finally {
-    setIsSubmitting(false);
-  }
-};
-
-
-
 
   /* ---------------- HANDLERS ---------------- */
   const handleChange = (e) => {
