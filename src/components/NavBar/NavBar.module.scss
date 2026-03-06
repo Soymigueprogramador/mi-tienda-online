@@ -1,64 +1,118 @@
+/* =========================================================
+   IMPORTS
+   Variables del sistema de diseño
+   ========================================================= */
+
 @use '../../styles/variables' as *;
 
-/* ---------------- HEADER ---------------- */
+
+
+/* =========================================================
+   HEADER COMPONENT
+   Contenedor principal de la barra de navegación
+   ========================================================= */
 
 .header {
+
+  /* Layout */
   display: flex;
   align-items: center;
   justify-content: space-between;
 
+  /* Spacing */
   padding: $space-3 $space-4;
 
-  border-bottom: 1px solid $color-border;
+  /* Visual */
   background: white;
+  border-bottom: 1px solid $color-border;
 
+  /* Behaviour */
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-/* ---------------- LOGO ---------------- */
+
+
+/* =========================================================
+   LOGO
+   Identidad del sitio dentro del navbar
+   ========================================================= */
 
 .logo {
-  font-size: 1.8rem;
-  text-decoration: none;
-  color: $color-text;
 
+  /* Layout */
   display: flex;
   align-items: center;
 
+  /* Typography */
+  font-size: 1.8rem;
+  color: $color-text;
+  text-decoration: none;
+
+  /* Behaviour */
   transition: transform 0.2s ease;
 }
+
+/* Efecto hover para dar feedback visual */
 
 .logo:hover {
   transform: scale(1.05);
 }
 
-/* ---------------- NAV LINKS ---------------- */
+
+
+/* =========================================================
+   NAVIGATION
+   Contenedor de los enlaces principales del sitio
+   ========================================================= */
 
 .nav {
+
+  /* Layout */
   display: flex;
   align-items: center;
+
+  /* Spacing */
   gap: $space-4;
 
+  /* Behaviour */
   transition: all 0.25s ease;
 }
 
+
+
+/* =========================================================
+   NAV LINKS
+   Estilos de los enlaces de navegación
+   ========================================================= */
+
 .nav a {
+
+  /* Layout */
+  position: relative;
+
+  /* Typography */
   text-decoration: none;
   color: $color-text;
   font-weight: 500;
 
-  position: relative;
-
+  /* Behaviour */
   transition: color 0.2s ease;
 }
+
+/* Hover: cambio de color */
 
 .nav a:hover {
   color: $color-primary;
 }
 
-/* underline animado */
+
+
+/* =========================================================
+   UNDERLINE ANIMATION
+   Subrayado animado al pasar el cursor
+   ========================================================= */
 
 .nav a::after {
   content: "";
@@ -79,26 +133,52 @@
   width: 100%;
 }
 
-/* ---------------- CART WIDGET ---------------- */
+
+
+/* =========================================================
+   CART WIDGET
+   Contenedor del icono del carrito
+   ========================================================= */
 
 .cart {
+
+  /* Layout */
   display: flex;
   align-items: center;
+
 }
 
-/* ---------------- MENU BUTTON (HAMBURGUESA) ---------------- */
+
+
+/* =========================================================
+   MENU BUTTON (HAMBURGER)
+   Botón utilizado en dispositivos móviles para abrir el menú
+   ========================================================= */
 
 .menuButton {
+
+  /* Layout */
   display: none;
 
+  /* Typography */
   font-size: 1.8rem;
+  color: $color-text;
+
+  /* Visual */
   background: none;
   border: none;
 
+  /* Behaviour */
   cursor: pointer;
 
-  color: $color-text;
 }
+
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
 
 /* ---------------- TABLET ---------------- */
 
@@ -114,38 +194,51 @@
 
 }
 
+
+
 /* ---------------- MOBILE ---------------- */
 
 @media (max-width: 640px) {
+
+  /* Mostrar botón hamburguesa */
 
   .menuButton {
     display: block;
   }
 
+  /* Permite que el menú se acomode en varias líneas */
+
   .header {
     flex-wrap: wrap;
   }
 
-  .nav {
-    position: absolute;
+  /* Menú mobile */
 
+  .nav {
+
+    /* Layout */
+    position: absolute;
     top: 70px;
     left: 0;
 
     width: 100%;
 
-    background: white;
+    display: none;
 
     flex-direction: column;
     align-items: center;
 
+    /* Spacing */
     gap: $space-3;
     padding: $space-3;
 
+    /* Visual */
+    background: white;
     border-bottom: 1px solid $color-border;
 
-    display: none;
   }
+
+  /* Estado activo del menú */
 
   .open {
     display: flex;
@@ -153,7 +246,9 @@
 
 }
 
-/* ---------------- MOBILE PEQUEÑO ---------------- */
+
+
+/* ---------------- SMALL MOBILE ---------------- */
 
 @media (max-width: 400px) {
 

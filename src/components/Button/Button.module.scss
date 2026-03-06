@@ -1,33 +1,53 @@
- /* Llamado a variables de scss */
+/* =========================================================
+   IMPORTS
+   Variables globales del sistema de diseño
+   ========================================================= */
 
-/*  */@use "../../styles/variables" as *;
+@use "../../styles/variables" as *;
 
-// Base del botón (estructura común)
+
+
+/* =========================================================
+   BASE COMPONENT
+   Estilos estructurales compartidos por todas las variantes
+   ========================================================= */
+
 .button {
+  /* Layout */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: $space-2;
 
+  /* Spacing */
   padding: $space-2 $space-4;
 
+  /* Typography */
+  font-family: $font-base;
   font-size: 0.95rem;
   font-weight: 600;
-  font-family: $font-base;
 
-  border-radius: $radius-md;
+  /* Visual */
   border: none;
+  border-radius: $radius-md;
 
+  /* Behaviour */
   cursor: pointer;
   transition: all $transition-base;
 
+  /* UX */
   white-space: nowrap;
   user-select: none;
 }
 
-// -----------------------------
-// VARIANT: PRIMARY (CTA)
-// -----------------------------
+
+
+/* =========================================================
+   VARIANT: PRIMARY
+   Botón principal (Call To Action)
+   Usado para acciones principales como comprar o enviar
+   ========================================================= */
+
 .primary {
   background-color: $color-accent;
   color: #fff;
@@ -41,9 +61,13 @@
   }
 }
 
-// -----------------------------
-// VARIANT: SECONDARY (neutral)
-// -----------------------------
+
+
+/* =========================================================
+   VARIANT: SECONDARY
+   Botón neutro para acciones secundarias
+   ========================================================= */
+
 .secondary {
   background-color: $color-surface;
   color: $color-text;
@@ -54,9 +78,14 @@
   }
 }
 
-// -----------------------------
-// VARIANT: GHOST (minimal)
-// -----------------------------
+
+
+/* =========================================================
+   VARIANT: GHOST
+   Botón minimalista sin fondo
+   Usado en interfaces con baja jerarquía visual
+   ========================================================= */
+
 .ghost {
   background: transparent;
   color: $color-text;
@@ -66,9 +95,13 @@
   }
 }
 
-// -----------------------------
-// DISABLED STATE
-// -----------------------------
+
+
+/* =========================================================
+   STATE: DISABLED
+   Estado deshabilitado para cualquier variante del botón
+   ========================================================= */
+
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;

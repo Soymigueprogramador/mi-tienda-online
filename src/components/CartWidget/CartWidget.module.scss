@@ -1,60 +1,79 @@
+/* =========================================================
+   IMPORTS
+   Variables globales del sistema de diseño
+   ========================================================= */
+
 @use '../../styles/variables' as *;
 
+
+
+/* =========================================================
+   CART WIDGET
+   Contenedor principal del ícono del carrito
+   ========================================================= */
+
 .cart {
-    position: relative;
-    display: inline-block;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 1.4rem;
-    color: inherit;
-}
+  /* Posicionamiento relativo para permitir posicionar el badge */
+  position: relative;
 
-.icon {
-    font-size: 1.6rem;
-}
-
-.badge {
-    position: absolute;
-  top: -6px;
-  right: -10px;
-
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
-
-  display: flex;
+  /* Layout */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  background: $color-primary;
-  color: white;
-  font-size: 0.7rem;
-  font-weight: 600;
-
-  border-radius: 999px;
-}
-
-.cart {
-  position: relative;
+  /* Tipografía / tamaño del icono */
   font-size: 1.6rem;
+
+  /* Apariencia */
   text-decoration: none;
+  color: inherit;
 }
+
+
+
+/* =========================================================
+   ICON
+   Estilo específico del ícono del carrito
+   ========================================================= */
+
+.icon {
+  font-size: 1.6rem;
+}
+
+
+
+/* =========================================================
+   BADGE
+   Indicador numérico de productos en el carrito
+   ========================================================= */
 
 .badge {
+  /* Posicionamiento respecto al contenedor .cart */
   position: absolute;
   top: -6px;
   right: -10px;
 
-  background: #ff4d4f;
+  /* Layout del contador */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Tamaño mínimo para mantener forma circular */
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+
+  /* Apariencia */
+  background: $color-primary;
   color: white;
 
+  /* Tipografía */
   font-size: 0.7rem;
   font-weight: 600;
 
-  padding: 3px 6px;
-  border-radius: 50%;
+  /* Forma circular */
+  border-radius: 999px;
 
-  min-width: 18px;
+  /* Alineación del número */
   text-align: center;
 }

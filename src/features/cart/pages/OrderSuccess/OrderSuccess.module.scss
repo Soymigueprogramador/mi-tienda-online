@@ -1,13 +1,43 @@
+/* ==============================
+   CONTENEDOR PRINCIPAL
+   ============================== */
+
 .container {
+  /* Limita el ancho del contenido para que no se estire demasiado */
   max-width: 600px;
+
+  /* Centra el contenedor horizontalmente */
   margin: auto;
+
+  /* Espaciado interno:
+     3rem arriba/abajo
+     1rem izquierda/derecha */
   padding: 3rem 1rem;
+
+  /* Centra el texto de todos los elementos internos */
   text-align: center;
 }
 
+
+/* ==============================
+   ID DE LA ORDEN
+   ============================== */
+
 .orderId {
+  /* Hace que el elemento se comporte como bloque
+     para poder aplicar márgenes verticales correctamente */
   display: block;
+
+  /* Espaciado:
+     1rem arriba
+     0 a los lados
+     2rem abajo */
   margin: 1rem 0 2rem;
+
+  /* Tamaño de fuente ligeramente mayor que el texto normal */
   font-size: 1.2rem;
+
+  /* Espaciado entre letras para mejorar legibilidad
+     especialmente si es un código de orden */
   letter-spacing: 1px;
 }
