@@ -1,56 +1,122 @@
 @use '../../../../styles/variables' as *;
 
-/* =========================
-   CONTENEDOR
-========================= */
+/* =================================================
+   LAYOUT
+================================================= */
 
 .container {
-  max-width: 900px;
+  width: 100%;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: $space-5 $space-3;
+
+  padding: clamp(1.5rem, 4vw, 3rem) $space-3;
 
   display: flex;
   flex-direction: column;
   gap: $space-4;
 }
 
-/* =========================
-   TÍTULO
-========================= */
+/* =================================================
+   TITULO
+================================================= */
 
 .title {
-  font-size: 1.8rem;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 600;
 }
 
-/* =========================
-   CONTROLES (BUSCAR + FILTRO)
-========================= */
+/* =================================================
+   CONTROLES (BUSCADOR + FILTROS)
+================================================= */
 
 .controls {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: $space-2;
 
   input,
   select {
     width: 100%;
+
     padding: $space-2 $space-3;
+
     border-radius: $radius-md;
-    border: 1px solid #ddd;
+    border: 1px solid $color-border;
+
     font-size: 0.95rem;
+
+    background: white;
+
+    transition: border $transition-fast,
+                box-shadow $transition-fast;
   }
 
   input:focus,
   select:focus {
     outline: none;
     border-color: $color-primary;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
   }
 }
 
-/* =========================
-   LISTA DE ÓRDENES
-========================= */
+/* =================================================
+   FILTROS
+================================================= */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+  align-items: center;
+}
+
+/* buscador */
+
+.search {
+  flex: 1;
+  min-width: 220px;
+
+  padding: $space-2 $space-3;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+
+  font-size: 0.95rem;
+
+  transition: border $transition-fast,
+              box-shadow $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+  }
+}
+
+/* select filtro */
+
+.filter {
+  padding: $space-2 $space-3;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+
+  font-size: 0.95rem;
+
+  background: white;
+  cursor: pointer;
+
+  transition: border $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+}
+
+/* =================================================
+   LISTA DE ORDENES
+================================================= */
 
 .list {
   display: flex;
@@ -58,38 +124,48 @@
   gap: $space-3;
 }
 
-/* =========================
-   PAGINACIÓN
-========================= */
+/* =================================================
+   PAGINACION
+================================================= */
 
 .pagination {
   display: flex;
+  justify-content: center;
+  align-items: center;
+
   flex-wrap: wrap;
   gap: 0.4rem;
+
   margin-top: $space-4;
-  justify-content: center;
+
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
 
   button {
     min-width: 36px;
 
-    padding: 0.4rem 0.7rem;
-
-    border: 1px solid #ddd;
-    background: white;
+    padding: 0.45rem 0.75rem;
 
     border-radius: $radius-sm;
+    border: 1px solid $color-border;
+
+    background: white;
 
     cursor: pointer;
 
-    transition: all 0.2s ease;
+    font-size: 0.9rem;
+
+    transition: background $transition-fast,
+                transform $transition-fast;
   }
 
   button:hover:not(:disabled) {
     background: #f5f5f5;
+    transform: translateY(-1px);
   }
 
   button:disabled {
-    opacity: 0.5;
+    opacity: 0.45;
     cursor: not-allowed;
   }
 }
@@ -101,13 +177,19 @@
   border-color: #111;
 }
 
-/* =========================
+/* =================================================
    EMPTY STATE
-========================= */
+================================================= */
 
 .empty {
   text-align: center;
-  padding: $space-6;
+
+  padding: clamp(2rem, 5vw, 4rem) $space-3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2;
 
   h1 {
     margin-bottom: $space-2;
@@ -115,10 +197,12 @@
 
   p {
     color: $color-text-muted;
-    margin-bottom: $space-4;
+    max-width: 420px;
   }
 
   button {
+    margin-top: $space-2;
+
     background: $color-primary;
     color: white;
 
@@ -128,41 +212,77 @@
     border: none;
 
     cursor: pointer;
+
+    transition: transform $transition-fast;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
   }
 }
 
-/* =========================
-   TABLET
-========================= */
+/* =================================================
+   RESPONSIVE
+================================================= */
 
-@media (min-width: 768px) {
+/* -------- TABLET -------- */
+
+@media (min-width: 640px) {
 
   .controls {
-    flex-direction: row;
-
-    input {
-      flex: 2;
-    }
-
-    select {
-      flex: 1;
-    }
+    grid-template-columns: 2fr 1fr;
   }
 
 }
 
-/* =========================
-   DESKTOP
-========================= */
+/* -------- SMALL DESKTOP -------- */
 
 @media (min-width: 1024px) {
 
-  .title {
-    font-size: 2rem;
+  .container {
+    padding: $space-6 $space-4;
   }
 
   .pagination button {
     padding: 0.5rem 0.9rem;
+  }
+
+}
+
+/* -------- LARGE DESKTOP -------- */
+
+@media (min-width: 1280px) {
+
+  .container {
+    max-width: 1200px;
+  }
+
+}
+
+/* -------- TABLET / MOBILE -------- */
+
+@media (max-width: 768px) {
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search,
+  .filter {
+    width: 100%;
+  }
+
+}
+
+/* -------- MOBILE -------- */
+
+@media (max-width: 480px) {
+
+  .search,
+  .filter {
+    font-size: 0.9rem;
+    padding: $space-2;
   }
 
 }
