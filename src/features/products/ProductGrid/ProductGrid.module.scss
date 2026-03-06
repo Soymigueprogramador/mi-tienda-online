@@ -1,8 +1,54 @@
 @use '../../../styles/variables' as *;
 
+/* =========================
+   PRODUCT GRID
+   ========================= */
+
 .grid {
-    display: grid;
-    grid-template-columns: repeat( 4, 1fr );
-    gap: $space-4;
-    margin-top: $space-5;
+  display: grid;
+
+  /* grid responsive automático */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: $space-4;
+  margin-top: $space-5;
+
+  width: 100%;
+}
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (min-width: 768px) {
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: $space-5;
+  }
+
+}
+
+/* =========================
+   DESKTOP
+   ========================= */
+
+@media (min-width: 1024px) {
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+}
+
+/* =========================
+   LARGE DESKTOP
+   ========================= */
+
+@media (min-width: 1280px) {
+
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
 }
