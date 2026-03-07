@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
   const { image, title, description, price } = product;
 
   return (
-    <Link to={ `/product/${ product.id }` } className={ style.cardLink }>
+    <Link to={`/product/${product.id}`} className={style.cardLink}>
       <article className={style.card}>
         {/* Imagen */}
         <img src={image} alt={title} className={style.image} />

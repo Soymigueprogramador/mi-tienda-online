@@ -1,34 +1,102 @@
 @use "../../../styles/variables.scss" as *;
 
+/* =========================
+   CARD LINK
+========================= */
+
 .cardLink {
+  display: block;
   text-decoration: none;
   color: inherit;
-  display: block;
 }
 
+/* =========================
+   CARD
+========================= */
+
 .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   background: $color-surface;
   border: 1px solid $color-border;
   border-radius: $radius-lg;
+
   padding: $space-3;
-  transition: box-shadow $transition-base;
+
+  overflow: hidden;
+
+  transition:
+    transform $transition-base,
+    box-shadow $transition-base,
+    border-color $transition-base;
 }
+
+/* hover interaction */
 
 .card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  border-color: rgba(0,0,0,0.08);
 }
 
+/* =========================
+   IMAGE
+========================= */
+
 .image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  object-fit: cover;
+
   border-radius: $radius-md;
+
   margin-bottom: $space-3;
 }
 
+/* =========================
+   TITLE
+========================= */
+
 .title {
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: $space-1;
+  color: $color-text;
+
+  /* evita títulos muy largos */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.price, .description {
+/* =========================
+   DESCRIPTION
+========================= */
+
+.description {
+  font-size: 0.9rem;
+  color: $color-text-muted;
+
+  margin-bottom: $space-2;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* =========================
+   PRICE
+========================= */
+
+.price {
+  margin-top: auto;
+
   font-weight: 700;
+  font-size: 1.05rem;
+
   color: $color-primary;
 }
