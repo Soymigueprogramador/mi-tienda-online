@@ -1,0 +1,161 @@
+/* =========================================================
+   IMPORTS
+   Variables globales del sistema de diseño
+   ========================================================= */
+
+@use '../../styles/variables' as *;
+
+
+
+/* =========================================================
+   FOOTER COMPONENT
+   Contenedor principal del pie de página
+   ========================================================= */
+
+.footer {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* Spacing */
+  padding: $space-4 $space-4;
+  margin-top: $space-5;
+
+  /* Visual */
+  border-top: 1px solid $color-border;
+  background: #fafafa;
+
+  /* Typography */
+  font-size: 0.9rem;
+  color: $color-text;
+}
+
+
+
+/* =========================================================
+   LINKS SECTION
+   Contenedor de los enlaces sociales
+   ========================================================= */
+
+.links {
+  /* Layout */
+  display: flex;
+
+  /* Spacing */
+  gap: $space-4;
+}
+
+
+
+/* =========================================================
+   SOCIAL LINKS
+   Estilo de los enlaces a redes sociales
+   ========================================================= */
+
+.links a {
+  /* Layout */
+  position: relative;
+
+  /* Typography */
+  text-decoration: none;
+  font-weight: 500;
+  color: $color-text;
+
+  /* Behaviour */
+  transition: color 0.2s ease;
+}
+
+
+
+/* Hover: cambio de color */
+
+.links a:hover {
+  color: $color-primary;
+}
+
+
+
+/* =========================================================
+   UNDERLINE ANIMATION
+   Subrayado animado al pasar el mouse
+   ========================================================= */
+
+.links a::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  bottom: -3px;
+
+  width: 0%;
+  height: 2px;
+
+  background: $color-primary;
+
+  transition: width 0.2s ease;
+}
+
+.links a:hover::after {
+  width: 100%;
+}
+
+
+
+/* =========================================================
+   FOOTER NOTE
+   Texto secundario (ej: "Desarrollado con React")
+   ========================================================= */
+
+.made {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+
+/* ---------------- TABLET ---------------- */
+
+@media (max-width: 900px) {
+
+  .footer {
+    flex-direction: column;
+    gap: $space-3;
+    text-align: center;
+  }
+
+}
+
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width: 600px) {
+
+  .links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $space-3;
+  }
+
+}
+
+
+/* ---------------- SMALL MOBILE ---------------- */
+
+@media (max-width: 400px) {
+
+  .footer {
+    font-size: 0.8rem;
+    padding: $space-3;
+  }
+
+  .links {
+    gap: $space-2;
+  }
+
+}

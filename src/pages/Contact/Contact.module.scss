@@ -1,0 +1,160 @@
+@use "../../styles/variables" as *;
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+
+  padding: $space-5 $space-4;
+
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.container h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: $color-text;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.container form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+
+  background: white;
+  padding: $space-4;
+
+  border: 1px solid $color-border;
+  border-radius: 8px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.container input,
+.container textarea {
+  width: 100%;
+  padding: $space-2;
+
+  border: 1px solid $color-border;
+  border-radius: 6px;
+
+  font-size: 1rem;
+
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* focus */
+
+.container input:focus,
+.container textarea:focus {
+  outline: none;
+  border-color: $color-primary;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+/* textarea */
+
+.container textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.container button {
+  padding: $space-2 $space-3;
+
+  border: none;
+  border-radius: 6px;
+
+  background: $color-primary;
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.container button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   AUXILIAR
+========================= */
+
+.header_text {
+  text-align: center;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+  .container {
+    padding: $space-4 $space-3;
+  }
+
+  .container form {
+    padding: $space-3;
+  }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .container h1 {
+    font-size: 1.6rem;
+  }
+
+  .container input,
+  .container textarea {
+    font-size: 0.95rem;
+  }
+
+  .container button {
+    width: 100%;
+  }
+
+}
+
+/* =========================
+   MOBILE SMALL
+========================= */
+
+@media (max-width: 400px) {
+
+  .container {
+    padding: $space-3 $space-2;
+  }
+
+}

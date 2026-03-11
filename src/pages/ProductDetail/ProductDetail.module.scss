@@ -1,0 +1,104 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $space-5 $space-3;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-5;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: start;
+  }
+}
+
+.imageWrapper {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-4;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: $radius-md;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: $color-text;
+}
+
+.description {
+  color: $color-text-muted;
+  line-height: 1.6;
+}
+
+.price {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: $color-primary;
+}
+
+.addButton {
+  margin-top: $space-2;
+  padding: $space-3;
+  border-radius: $radius-md;
+  border: none;
+  background: $color-primary;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-base;
+}
+
+.addButton:hover {
+  transform: translateY(-1px);
+}
+
+.backButton {
+  margin-top: $space-1;
+  background: transparent;
+  border: none;
+  color: $color-text-muted;
+  cursor: pointer;
+  text-align: left;
+}
+
+.backButton:hover {
+  color: $color-text;
+}
+
+.notFound {
+  text-align: center;
+  padding: $space-6;
+
+  h2 {
+    margin-bottom: $space-3;
+  }
+
+  button {
+    padding: $space-2 $space-4;
+    border-radius: $radius-md;
+    border: 1px solid $color-border;
+    background: white;
+    cursor: pointer;
+  }
+}

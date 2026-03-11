@@ -1,0 +1,260 @@
+/* =========================================================
+   IMPORTS
+   Variables del sistema de diseño
+   ========================================================= */
+
+@use '../../styles/variables' as *;
+
+
+
+/* =========================================================
+   HEADER COMPONENT
+   Contenedor principal de la barra de navegación
+   ========================================================= */
+
+.header {
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* Spacing */
+  padding: $space-3 $space-4;
+
+  /* Visual */
+  background: white;
+  border-bottom: 1px solid $color-border;
+
+  /* Behaviour */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+
+
+/* =========================================================
+   LOGO
+   Identidad del sitio dentro del navbar
+   ========================================================= */
+
+.logo {
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+
+  /* Typography */
+  font-size: 1.8rem;
+  color: $color-text;
+  text-decoration: none;
+
+  /* Behaviour */
+  transition: transform 0.2s ease;
+}
+
+/* Efecto hover para dar feedback visual */
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+
+
+/* =========================================================
+   NAVIGATION
+   Contenedor de los enlaces principales del sitio
+   ========================================================= */
+
+.nav {
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+
+  /* Spacing */
+  gap: $space-4;
+
+  /* Behaviour */
+  transition: all 0.25s ease;
+}
+
+
+
+/* =========================================================
+   NAV LINKS
+   Estilos de los enlaces de navegación
+   ========================================================= */
+
+.nav a {
+
+  /* Layout */
+  position: relative;
+
+  /* Typography */
+  text-decoration: none;
+  color: $color-text;
+  font-weight: 500;
+
+  /* Behaviour */
+  transition: color 0.2s ease;
+}
+
+/* Hover: cambio de color */
+
+.nav a:hover {
+  color: $color-primary;
+}
+
+
+
+/* =========================================================
+   UNDERLINE ANIMATION
+   Subrayado animado al pasar el cursor
+   ========================================================= */
+
+.nav a::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  bottom: -4px;
+
+  width: 0%;
+  height: 2px;
+
+  background: $color-primary;
+
+  transition: width 0.2s ease;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+
+
+/* =========================================================
+   CART WIDGET
+   Contenedor del icono del carrito
+   ========================================================= */
+
+.cart {
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+
+}
+
+
+
+/* =========================================================
+   MENU BUTTON (HAMBURGER)
+   Botón utilizado en dispositivos móviles para abrir el menú
+   ========================================================= */
+
+.menuButton {
+
+  /* Layout */
+  display: none;
+
+  /* Typography */
+  font-size: 1.8rem;
+  color: $color-text;
+
+  /* Visual */
+  background: none;
+  border: none;
+
+  /* Behaviour */
+  cursor: pointer;
+
+}
+
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+
+/* ---------------- TABLET ---------------- */
+
+@media (max-width: 900px) {
+
+  .header {
+    padding: $space-3;
+  }
+
+  .nav {
+    gap: $space-3;
+  }
+
+}
+
+
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width: 640px) {
+
+  /* Mostrar botón hamburguesa */
+
+  .menuButton {
+    display: block;
+  }
+
+  /* Permite que el menú se acomode en varias líneas */
+
+  .header {
+    flex-wrap: wrap;
+  }
+
+  /* Menú mobile */
+
+  .nav {
+
+    /* Layout */
+    position: absolute;
+    top: 70px;
+    left: 0;
+
+    width: 100%;
+
+    display: none;
+
+    flex-direction: column;
+    align-items: center;
+
+    /* Spacing */
+    gap: $space-3;
+    padding: $space-3;
+
+    /* Visual */
+    background: white;
+    border-bottom: 1px solid $color-border;
+
+  }
+
+  /* Estado activo del menú */
+
+  .open {
+    display: flex;
+  }
+
+}
+
+
+
+/* ---------------- SMALL MOBILE ---------------- */
+
+@media (max-width: 400px) {
+
+  .nav {
+    font-size: 0.9rem;
+    gap: $space-2;
+  }
+
+}

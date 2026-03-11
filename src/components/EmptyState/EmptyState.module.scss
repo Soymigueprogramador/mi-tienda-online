@@ -1,0 +1,51 @@
+/* =========================================================
+   EMPTY STATE COMPONENT
+   Estilos para el componente que representa estados vacíos
+   (ej: carrito vacío, órdenes vacías, sin resultados, etc.)
+   ========================================================= */
+
+.empty {
+  /* Layout */
+  text-align: center;
+
+  /* Spacing */
+  padding: 60px 20px;
+}
+
+
+
+/* =========================================================
+   ICON
+   Elemento visual que representa el estado vacío
+   ========================================================= */
+
+.icon {
+  /* Tamaño del ícono */
+  font-size: 60px;
+
+  /* Separación respecto al título */
+  margin-bottom: 15px;
+}
+
+
+
+/* =========================================================
+   ACTION BUTTON
+   Botón opcional para invitar al usuario a realizar una acción
+   (ej: "Ir a la tienda", "Explorar productos", etc.)
+   ========================================================= */
+
+button {
+  /* Spacing */
+  margin-top: 15px;
+  padding: 10px 18px;
+
+  /* Apariencia */
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 6px;
+
+  /* Interacción */
+  cursor: pointer;
+}

@@ -1,0 +1,115 @@
+/* ------------------------------------------------ */
+/* IMPORTACIÓN DE VARIABLES GLOBALES */
+/* ------------------------------------------------ */
+
+@use "../../../../styles/variables" as *;
+
+
+/* ------------------------------------------------ */
+/* DRAWER (CONTENEDOR PRINCIPAL DEL CARRITO) */
+/* ------------------------------------------------ */
+
+.drawer {
+  /* Posicionamiento fijo para que el drawer
+     se mantenga visible al hacer scroll */
+  position: fixed;
+
+  top: 0;
+  right: -420px; // oculto fuera de la pantalla inicialmente
+
+  /* Tamaño del panel */
+  width: 420px;
+  height: 100vh;
+
+  /* Estética */
+  background: $color-surface;
+  border-left: 1px solid $color-border;
+
+  /* Animación al abrir/cerrar */
+  transition: right $transition-base;
+
+  /* Layout interno */
+  display: flex;
+  flex-direction: column;
+
+  /* Prioridad de capa */
+  z-index: 1000;
+}
+
+
+/* ------------------------------------------------ */
+/* ESTADO ABIERTO DEL DRAWER */
+/* ------------------------------------------------ */
+
+.open {
+  right: 0; // cuando se abre, entra completamente en pantalla
+}
+
+
+/* ------------------------------------------------ */
+/* HEADER DEL CARRITO */
+/* ------------------------------------------------ */
+
+.header {
+  /* Espaciado interno */
+  padding: $space-4;
+
+  /* Separador visual */
+  border-bottom: 1px solid $color-border;
+
+  /* Distribución horizontal */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/* ------------------------------------------------ */
+/* CONTENIDO DEL CARRITO */
+/* ------------------------------------------------ */
+
+.content {
+  /* Ocupa todo el espacio disponible */
+  flex: 1;
+
+  /* Scroll interno si hay muchos productos */
+  overflow-y: auto;
+
+  /* Espaciado interno */
+  padding: $space-4;
+}
+
+
+/* ------------------------------------------------ */
+/* ITEM DEL CARRITO */
+/* ------------------------------------------------ */
+
+.item {
+  /* Layout horizontal del producto */
+  display: flex;
+  gap: $space-3;
+
+  /* Separación entre productos */
+  margin-bottom: $space-4;
+}
+
+
+/* Imagen del producto */
+
+.item img {
+  width: 64px;
+  border-radius: $radius-sm;
+}
+
+
+/* ------------------------------------------------ */
+/* FOOTER DEL DRAWER */
+/* ------------------------------------------------ */
+
+.footer {
+  /* Espaciado interno */
+  padding: $space-4;
+
+  /* Línea divisoria */
+  border-top: 1px solid $color-border;
+}

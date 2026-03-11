@@ -1,0 +1,109 @@
+/* =========================================================
+   IMPORTS
+   Variables globales del sistema de diseño
+   ========================================================= */
+
+@use "../../styles/variables" as *;
+
+
+
+/* =========================================================
+   BASE COMPONENT
+   Estilos estructurales compartidos por todas las variantes
+   ========================================================= */
+
+.button {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+
+  /* Spacing */
+  padding: $space-2 $space-4;
+
+  /* Typography */
+  font-family: $font-base;
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  /* Visual */
+  border: none;
+  border-radius: $radius-md;
+
+  /* Behaviour */
+  cursor: pointer;
+  transition: all $transition-base;
+
+  /* UX */
+  white-space: nowrap;
+  user-select: none;
+}
+
+
+
+/* =========================================================
+   VARIANT: PRIMARY
+   Botón principal (Call To Action)
+   Usado para acciones principales como comprar o enviar
+   ========================================================= */
+
+.primary {
+  background-color: $color-accent;
+  color: #fff;
+
+  &:hover {
+    background-color: darken($color-accent, 7%);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+
+
+/* =========================================================
+   VARIANT: SECONDARY
+   Botón neutro para acciones secundarias
+   ========================================================= */
+
+.secondary {
+  background-color: $color-surface;
+  color: $color-text;
+  border: 1px solid $color-border;
+
+  &:hover {
+    background-color: $color-bg;
+  }
+}
+
+
+
+/* =========================================================
+   VARIANT: GHOST
+   Botón minimalista sin fondo
+   Usado en interfaces con baja jerarquía visual
+   ========================================================= */
+
+.ghost {
+  background: transparent;
+  color: $color-text;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+
+
+/* =========================================================
+   STATE: DISABLED
+   Estado deshabilitado para cualquier variante del botón
+   ========================================================= */
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
