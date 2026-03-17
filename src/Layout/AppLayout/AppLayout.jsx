@@ -9,7 +9,7 @@ const AppLayout = () => {
 
   return (
     <>
-      
+
 
       <main>
         <NavBar onCartClick={() => setCartOpen(true)} />

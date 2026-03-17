@@ -1,4 +1,3 @@
-import { data } from "react-router-dom";
 
 // La api del backend
 const api = "http://localhost:3000/api";

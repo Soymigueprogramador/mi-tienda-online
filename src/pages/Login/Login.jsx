@@ -27,7 +27,7 @@ const Login = () => {
       const data = await loginUser(form);
       login(data);
     } catch (error) {
-      setError(" Usuario o contraseña incorrecto ");
+      setError(" Usuario o contraseña incorrecto ", error);
     }
   };
 
@@ -64,7 +64,7 @@ const Login = () => {
           </form>
 
           <p>
-            ¿No tenes cuenta? <a href="/register"> Registrate </a>
+            ¿No tenes cuenta? <a href="/registro"> Registrate </a>
           </p>
         </div>
       </div>

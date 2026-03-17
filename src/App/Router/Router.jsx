@@ -32,6 +32,9 @@ import Contact from '../../pages/Contact/Contact.jsx'
 // Página de login del sitio
 import Login from '../../pages/Login/Login.jsx'
 
+// Página de registro del sitio
+import Register from '../../pages/Register/Register.jsx'
+
 
 // Componente encargado de definir la configuración de rutas de la aplicación.
 // Centraliza la navegación y organiza las páginas dentro de un layout común.
@@ -91,6 +94,9 @@ const Router = () => {
 
           {/* Ruta a la pagina del login */}
           <Route path="/login" element={ <Login /> } />
+
+          {/* Ruta a la pagina del registro */}
+          <Route path="/registro" element={ <Register /> } />
 
           {/*
             Ruta comodín.
