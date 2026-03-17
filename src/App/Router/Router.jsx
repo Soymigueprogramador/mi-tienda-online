@@ -29,6 +29,9 @@ import NotFound from '../../pages/NotFound/NotFound.jsx'
 // Página de contacto del sitio
 import Contact from '../../pages/Contact/Contact.jsx'
 
+// Página de login del sitio
+import Login from '../../pages/Login/Login.jsx'
+
 
 // Componente encargado de definir la configuración de rutas de la aplicación.
 // Centraliza la navegación y organiza las páginas dentro de un layout común.
@@ -85,6 +88,9 @@ const Router = () => {
 
           {/* Página de contacto del sitio */}
           <Route path="/contact" element={<Contact />} />
+
+          {/* Ruta a la pagina del login */}
+          <Route path="/login" element={ <Login /> } />
 
           {/*
             Ruta comodín.
