@@ -58,7 +58,7 @@ const NavBar = () => {
 
       {/* Logo del sitio que redirige a la página principal */}
       <Link to="/" className={style.logo}>
-        Tienda online 🏪
+        Tienda online 
       </Link>
 
 
